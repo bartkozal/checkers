@@ -37,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXr-rl-rRi">
-                                <state key="normal" title="Did move"/>
+                                <state key="normal" title="Confirm"/>
                                 <connections>
                                     <action selector="tapConfirmMoveButton" destination="NsR-dU-caD" eventType="touchUpInside" id="zhj-FF-caE"/>
                                 </connections>
@@ -45,10 +45,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iXr-rl-rRi" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="3Kk-Xe-dGR"/>
-                            <constraint firstItem="iXr-rl-rRi" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="L9B-uB-9ba"/>
+                            <constraint firstItem="iXr-rl-rRi" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="La7-J0-fd3"/>
+                            <constraint firstItem="sD6-CB-hY6" firstAttribute="top" secondItem="iXr-rl-rRi" secondAttribute="bottom" constant="8" id="RE0-KD-iL0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="confirmMoveButton" destination="iXr-rl-rRi" id="qJb-nW-NhY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0z-AN-wOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

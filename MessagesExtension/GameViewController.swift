@@ -21,6 +21,8 @@ class GameViewController: UIViewController {
     var scene: GameScene!
     var board: Board!
 
+    @IBOutlet weak var confirmMoveButton: UIButton!
+
     @IBAction private func tapConfirmMoveButton() {
         delegate?.didMove(snapshot: getGameSnapshot() ?? UIImage())
     }
@@ -36,8 +38,10 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let skView = self.view as! SKView
+        let skView = SKView(frame: view.frame)
         skView.isMultipleTouchEnabled = false
+        view.addSubview(skView)
+        view.bringSubview(toFront: confirmMoveButton)
 
         scene = GameScene(size: skView.bounds.size)
         scene.scaleMode = .aspectFill
