@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 protocol GameViewControllerDelegate: class {
     func didMove(snapshot gameSnapshot: UIImage)
@@ -17,7 +18,8 @@ class GameViewController: UIViewController {
 
     weak var delegate: GameViewControllerDelegate?
 
-    // var board: Board?
+    var scene: GameScene!
+    var board: Board!
 
     @IBAction private func tapConfirmMoveButton() {
         delegate?.didMove(snapshot: getGameSnapshot() ?? UIImage())
@@ -31,9 +33,17 @@ class GameViewController: UIViewController {
         return snapshot
     }
 
-    // override func viewWillAppear(_ animated: Bool) {
-    //     super.viewWillAppear(animated)
-    //
-    //     board?.view = boardView
-    // }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let skView = self.view as! SKView
+        skView.isMultipleTouchEnabled = false
+
+        scene = GameScene(size: skView.bounds.size)
+        scene.scaleMode = .aspectFill
+        scene.board = board
+        scene.renderBoard()
+
+        skView.presentScene(scene)
+    }
 }

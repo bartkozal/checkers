@@ -30,9 +30,8 @@ class MessagesViewController: MSMessagesAppViewController {
         if presentationStyle == .compact {
             controller = instantiateMenuVC()
         } else {
-            // let board = Board(message: conversation.selectedMessage)
-            // controller = instantiateBoardVC(with: board)
-            controller = instantiateGameVC()
+            let board = Board(message: conversation.selectedMessage)
+            controller = instantiateGameVC(with: board)
         }
 
         for child in childViewControllers {
@@ -64,12 +63,12 @@ class MessagesViewController: MSMessagesAppViewController {
         return menuVC
     }
 
-    private func instantiateGameVC() -> UIViewController {
+    private func instantiateGameVC(with board: Board) -> UIViewController {
         guard let gameVC = storyboard?.instantiateViewController(withIdentifier: GameViewController.storyboardIdentifier) as? GameViewController else {
             fatalError("Can't instantiate GameViewController")
         }
 
-        // boardVC.board = board
+        gameVC.board = board
         gameVC.delegate = self
 
         return gameVC
