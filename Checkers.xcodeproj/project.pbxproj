@@ -405,6 +405,7 @@
 				A10EE8D81D70D4F80044A5E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A10EE8DA1D70D4F80044A5E1 /* Build configuration list for PBXNativeTarget "Checkers" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +414,7 @@
 				A10EE8DC1D70D4F80044A5E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
