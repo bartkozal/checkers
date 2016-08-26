@@ -35,7 +35,19 @@
                     <view key="view" contentMode="scaleToFill" id="mXW-FR-u3w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXr-rl-rRi">
+                                <state key="normal" title="Did move"/>
+                                <connections>
+                                    <action selector="tapConfirmMoveButton" destination="NsR-dU-caD" eventType="touchUpInside" id="zhj-FF-caE"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iXr-rl-rRi" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="3Kk-Xe-dGR"/>
+                            <constraint firstItem="iXr-rl-rRi" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="L9B-uB-9ba"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0z-AN-wOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -53,7 +65,19 @@
                     <view key="view" contentMode="scaleToFill" id="dAM-0f-Jvg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQb-py-UCV">
+                                <state key="normal" title="Start new game"/>
+                                <connections>
+                                    <action selector="tapNewGameButton" destination="a56-QT-LXJ" eventType="touchUpInside" id="i5K-o0-Ilm"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cQb-py-UCV" firstAttribute="centerY" secondItem="dAM-0f-Jvg" secondAttribute="centerY" id="38M-MP-xfS"/>
+                            <constraint firstItem="cQb-py-UCV" firstAttribute="centerX" secondItem="dAM-0f-Jvg" secondAttribute="centerX" id="Mto-mU-BH2"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qPZ-HF-7fn" userLabel="First Responder" sceneMemberID="firstResponder"/>

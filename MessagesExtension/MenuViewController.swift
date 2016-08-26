@@ -8,6 +8,16 @@
 
 import UIKit
 
-class MenuViewController: UIViewController {
+protocol MenuViewControllerDelegate: class {
+    func didStartGame()
+}
 
+class MenuViewController: UIViewController {
+    static let storyboardIdentifier = "MenuViewController"
+
+    weak var delegate: MenuViewControllerDelegate?
+
+    @IBAction private func tapNewGameButton() {
+        delegate?.didStartGame()
+    }
 }
