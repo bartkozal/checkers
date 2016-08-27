@@ -20,25 +20,23 @@ class GameViewController: UIViewController {
 
     var scene: GameScene!
     var board: Board!
+    var skView: SKView!
 
     @IBOutlet weak var confirmMoveButton: UIButton!
 
     @IBAction private func tapConfirmMoveButton() {
-        delegate?.didMove(snapshot: getGameSnapshot() ?? UIImage())
+        delegate?.didMove(snapshot: getGameSnapshot())
     }
 
-    private func getGameSnapshot() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, true, UIScreen.main.scale)
-        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-        let snapshot = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return snapshot
+    private func getGameSnapshot() -> UIImage {
+        let cgImage = skView!.texture(from: scene.gameLayer)!.cgImage()
+        return UIImage(cgImage: cgImage)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let skView = SKView(frame: view.frame)
+        skView = SKView(frame: view.frame)
         skView.isMultipleTouchEnabled = false
         view.addSubview(skView)
         view.bringSubview(toFront: confirmMoveButton)
