@@ -82,7 +82,7 @@ extension MessagesViewController: MenuViewControllerDelegate {
 }
 
 extension MessagesViewController: GameViewControllerDelegate {
-    func didMove(snapshot gameSnapshot: UIImage) {
+    func didMove(setup boardSetup: String, snapshot gameSnapshot: UIImage) {
         requestPresentationStyle(.compact)
 
         let conversation = activeConversation

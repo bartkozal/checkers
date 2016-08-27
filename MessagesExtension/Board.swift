@@ -10,6 +10,19 @@ import Messages
 
 class Board {
     private var pieces = Array2D<Piece>(columns: Settings.boardSize, rows: Settings.boardSize)
+    private let newGameSetupKey = "w00,w20,w40,w60,w11,w31,w51,w71,w02,w22,w42,w62,r15,r35,r55,r75,r06,r26,r46,r66,r17,r37,r57,r77"
+
+    var setupKey: String {
+        var setup: [String] = []
+        for row in 0..<Settings.boardSize {
+            for column in 0..<Settings.boardSize {
+                if let piece = pieces[column, row] {
+                    setup.append("\(piece.pieceType.symbol)\(piece.column)\(piece.row)")
+                }
+            }
+        }
+        return setup.joined(separator: ",")
+    }
 
     func pieceAt(column: Int, row: Int) -> Piece? {
         guard column >= 0 && column < Settings.boardSize else { return nil }
@@ -30,29 +43,22 @@ class Board {
     }
 
     init(message: MSMessage?) {
-        pieces[0, 0] = Piece(column: 0, row: 0, pieceType: .white)
-        pieces[2, 0] = Piece(column: 2, row: 0, pieceType: .white)
-        pieces[4, 0] = Piece(column: 4, row: 0, pieceType: .white)
-        pieces[6, 0] = Piece(column: 6, row: 0, pieceType: .white)
-        pieces[1, 1] = Piece(column: 1, row: 1, pieceType: .white)
-        pieces[3, 1] = Piece(column: 3, row: 1, pieceType: .white)
-        pieces[5, 1] = Piece(column: 5, row: 1, pieceType: .white)
-        pieces[7, 1] = Piece(column: 7, row: 1, pieceType: .white)
-        pieces[0, 2] = Piece(column: 0, row: 2, pieceType: .white)
-        pieces[2, 2] = Piece(column: 2, row: 2, pieceType: .white)
-        pieces[4, 2] = Piece(column: 4, row: 2, pieceType: .white)
-        pieces[6, 2] = Piece(column: 6, row: 2, pieceType: .white)
-        pieces[1, 5] = Piece(column: 1, row: 5, pieceType: .red)
-        pieces[3, 5] = Piece(column: 3, row: 5, pieceType: .red)
-        pieces[5, 5] = Piece(column: 5, row: 5, pieceType: .red)
-        pieces[7, 5] = Piece(column: 7, row: 5, pieceType: .red)
-        pieces[0, 6] = Piece(column: 0, row: 6, pieceType: .red)
-        pieces[2, 6] = Piece(column: 2, row: 6, pieceType: .red)
-        pieces[4, 6] = Piece(column: 4, row: 6, pieceType: .red)
-        pieces[6, 6] = Piece(column: 6, row: 6, pieceType: .red)
-        pieces[1, 7] = Piece(column: 1, row: 7, pieceType: .red)
-        pieces[3, 7] = Piece(column: 3, row: 7, pieceType: .red)
-        pieces[5, 7] = Piece(column: 5, row: 7, pieceType: .red)
-        pieces[7, 7] = Piece(column: 7, row: 7, pieceType: .red)
+        if let message = message {
+            // TODO
+        } else {
+            setUpBoard(with: newGameSetupKey)
+        }
+
+    }
+
+    private func setUpBoard(with setup: String) {
+        for piece in setup.components(separatedBy: ",") {
+            let setup = Array(piece.characters)
+            let pieceType = PieceType.bySymbol(String(setup[0]))!
+            let column = Int(String(setup[1]))!
+            let row = Int(String(setup[2]))!
+
+            pieces[column, row] = Piece(column: column, row: row, pieceType: pieceType)
+        }
     }
 }

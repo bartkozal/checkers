@@ -12,14 +12,26 @@ enum PieceType: Int {
     case white, red, whiteKing, redKing
 
     var spriteName: String {
-        let spriteNames = [
-            "white-piece",
-            "red-piece",
-            "white-king",
-            "red-king"
-        ]
+        let spriteNames = ["white-piece", "red-piece", "white-king", "red-king"]
 
         return spriteNames[rawValue]
+    }
+
+    var symbol: String {
+        let symbols = ["w", "r", "wk", "rk"]
+
+        return symbols[rawValue]
+    }
+
+    static func bySymbol(_ symbol: String) -> PieceType? {
+        let symbols: [String: PieceType] = [
+            "w": .white,
+            "r": .red,
+            "wk": .whiteKing,
+            "rk": .redKing
+        ]
+        
+        return symbols[symbol]
     }
 }
 

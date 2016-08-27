@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 
 protocol GameViewControllerDelegate: class {
-    func didMove(snapshot gameSnapshot: UIImage)
+    func didMove(setup boardSetup: String, snapshot gameSnapshot: UIImage)
 }
 
 class GameViewController: UIViewController {
@@ -25,7 +25,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var confirmMoveButton: UIButton!
 
     @IBAction private func tapConfirmMoveButton() {
-        delegate?.didMove(snapshot: getGameSnapshot())
+        delegate?.didMove(setup: board.setupKey, snapshot: getGameSnapshot())
+        print(board.setupKey)
     }
 
     private func getGameSnapshot() -> UIImage {
