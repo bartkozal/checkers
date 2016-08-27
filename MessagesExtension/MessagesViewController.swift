@@ -93,7 +93,7 @@ extension MessagesViewController: GameViewControllerDelegate {
 
         let message = MSMessage(session: session)
         message.layout = layout
-        message.summaryText = "Did make a move"
+        message.summaryText = "Did a move"
         
         conversation?.insert(message)
     }
