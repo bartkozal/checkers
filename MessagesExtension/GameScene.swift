@@ -8,6 +8,10 @@
 
 import SpriteKit
 
+protocol GameSceneDelegate: class {
+    func didMove()
+}
+
 class GameScene: SKScene {
     let tileSize: CGFloat = 36.0
     let boardSize = Settings.boardSize
@@ -18,6 +22,8 @@ class GameScene: SKScene {
 
     var board: Board!
     var selectedPiece: Piece?
+
+    weak var gameSceneDelegate: GameSceneDelegate?
 
     override init(size: CGSize) {
         super.init(size: size)
@@ -99,6 +105,7 @@ class GameScene: SKScene {
         }
 
         board.move(piece: piece, to: to)
+        gameSceneDelegate?.didMove()
 
         let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
         movement.timingMode = .linear

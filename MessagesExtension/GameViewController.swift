@@ -23,14 +23,18 @@ class GameViewController: UIViewController {
     var skView: SKView!
 
     @IBOutlet weak var buttonsView: UIStackView!
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var confirmButton: UIButton!
 
-    @IBAction private func tapConfirmMoveButton() {
+    @IBAction private func tapConfirmButton() {
         delegate?.didMove(setup: board.setupKey, snapshot: getGameSnapshot())
     }
 
-    @IBAction private func tapUndoMoveButton() {
+    @IBAction private func tapUndoButton() {
         board.setupKey = board.initialSetupKey
         scene.renderBoard()
+        undoButton.isEnabled = false
+        confirmButton.isEnabled = false
     }
 
     private func getGameSnapshot() -> UIImage {
@@ -47,10 +51,18 @@ class GameViewController: UIViewController {
         view.bringSubview(toFront: buttonsView)
 
         scene = GameScene(size: skView.bounds.size)
+        scene.gameSceneDelegate = self
         scene.scaleMode = .aspectFill
         scene.board = board
         scene.renderBoard()
 
         skView.presentScene(scene)
+    }
+}
+
+extension GameViewController: GameSceneDelegate {
+    func didMove() {
+        undoButton.isEnabled = true
+        confirmButton.isEnabled = true
     }
 }
