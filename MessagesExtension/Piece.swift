@@ -63,6 +63,19 @@ class Piece {
         }
     }
 
+    func canMoveOnCaptureTo(column: Int, row: Int) -> Bool {
+        switch pieceType {
+        case .white, .red:
+            return self.column + 2 == column && self.row + 2 == row ||
+                   self.column - 2 == column && self.row + 2 == row ||
+                   self.column + 2 == column && self.row - 2 == row ||
+                   self.column - 2 == column && self.row - 2 == row
+        case .whiteKing, .redKing:
+            // TODO
+            return false
+        }
+    }
+
     func canCrownOn(row: Int) -> Bool {
         switch pieceType {
         case .white:
@@ -71,6 +84,15 @@ class Piece {
             return row == 0
         default:
             return false
+        }
+    }
+
+    func canCapture(type pieceType: PieceType) -> Bool {
+        switch self.pieceType {
+        case .white, .whiteKing:
+            return pieceType == .red || pieceType == .redKing
+        case .red, .redKing:
+            return pieceType == .white || pieceType == .whiteKing
         }
     }
 }

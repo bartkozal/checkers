@@ -49,6 +49,10 @@ class Board {
         pieces[to.column, to.row] = piece
     }
 
+    func capture(piece: Piece) {
+        pieces[piece.column, piece.row] = nil
+    }
+
     init(message: MSMessage?) {
         guard let message = message, let url = message.url else {
             initialSetupKey = newGameSetupKey

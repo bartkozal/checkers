@@ -77,9 +77,11 @@ class GameScene: SKScene {
         let location = touch.location(in: piecesLayer)
         let (success, column, row) = convert(point: location)
 
-        if success {
-            tryMove(piece: piece, to: (column, row))
-            tryCrown(piece: piece)
+        if success && !board.isPieceAt(column: column, row: row) {
+            if !tryCapture(piece: piece, to: (column, row)) {
+                tryMove(piece: piece, to: (column, row))
+                tryCrown(piece: piece)
+            }
         } else {
             abandonMoveOf(piece: piece)
         }
@@ -93,19 +95,41 @@ class GameScene: SKScene {
         touchesEnded(touches, with: event)
     }
 
-    private func tryMove(piece: Piece, to: (column: Int, row: Int)) {
-        guard !board.isPieceAt(column: to.column, row: to.row) else {
-            abandonMoveOf(piece: piece)
-            return
+    private func tryCapture(piece: Piece, to: (column: Int, row: Int)) -> Bool {
+        guard piece.canMoveOnCaptureTo(column: to.column, row: to.row) else {
+            return false
         }
 
+        let capturedColumn = piece.column + (to.column - piece.column) / 2
+        let capturedRow = piece.row + (to.row - piece.row) / 2
+
+        guard let captured = board.pieceAt(column: capturedColumn, row: capturedRow) else {
+            return false
+        }
+
+        guard piece.canCapture(type: captured.pieceType) else {
+            return false
+        }
+
+        board.capture(piece: captured)
+        board.move(piece: piece, to: to)
+        gameSceneDelegate?.didFinishMove()
+
+        let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
+        movement.timingMode = .linear
+        captured.sprite?.removeFromParent()
+        piece.sprite?.run(movement)
+
+        return true
+    }
+
+    private func tryMove(piece: Piece, to: (column: Int, row: Int)) {
         guard piece.canMoveTo(column: to.column, row: to.row) else {
             abandonMoveOf(piece: piece)
             return
         }
 
         board.move(piece: piece, to: to)
-        gameSceneDelegate?.didFinishMove()
 
         let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
         movement.timingMode = .linear
