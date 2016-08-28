@@ -13,7 +13,8 @@ protocol GameSceneDelegate: class {
 }
 
 class GameScene: SKScene {
-    let tileSize: CGFloat = 36.0
+    let tileSize: CGFloat = 42.0
+    let pieceSize: CGFloat = 36.0
     let boardSize = Settings.boardSize
 
     let gameLayer = SKNode()
@@ -99,7 +100,7 @@ class GameScene: SKScene {
         }
 
         piece.sprite?.zPosition = 0.0
-        piece.sprite?.size = CGSize(width: tileSize, height: tileSize)
+        piece.sprite?.size = CGSize(width: pieceSize, height: pieceSize)
         draggedPiece = nil
     }
 
@@ -204,7 +205,7 @@ class GameScene: SKScene {
 
                 if let piece = board.pieceAt(column: column, row: row) {
                     let sprite = piece.sprite ?? SKSpriteNode(imageNamed: piece.pieceType.spriteName)
-                    sprite.size = size
+                    sprite.size = CGSize(width: pieceSize, height: pieceSize)
                     sprite.position = position
                     piecesLayer.addChild(sprite)
                     piece.sprite = sprite
