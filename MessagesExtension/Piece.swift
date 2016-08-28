@@ -85,9 +85,8 @@ class Piece {
     }
 
     func toCaptureOnMoveTo(column: Int, row: Int) -> (column: Int, row: Int) {
-        let column = self.column + (column - self.column - 1)
-        let row = self.row + (row - self.row - 1)
-
+        let column = (column - self.column) / abs(column - self.column) * (abs(column - self.column) - 1) + self.column
+        let row = (row - self.row) / abs(row - self.row) * (abs(row - self.row) - 1) + self.row
         return (column, row)
     }
 

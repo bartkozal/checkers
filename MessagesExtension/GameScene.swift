@@ -22,7 +22,7 @@ class GameScene: SKScene {
 
     var board: Board!
     var draggedPiece: Piece?
-    var captures: [Piece]?
+    var captures = [Piece]()
     var capturing = false
 
     weak var gameSceneDelegate: GameSceneDelegate?
@@ -109,12 +109,22 @@ class GameScene: SKScene {
     }
 
     private func capturesFor(piece: Piece) -> Bool {
-        // TODO list of pieces to capture
-        return false
+        captures.removeAll()
+        for row in [-1, 1] {
+            for column in [-1, 1] {
+                if let pieceToCapture = board.pieceAt(column: piece.column + column, row: piece.row + row),
+                    !board.isPieceAt(column: piece.column + column * 2, row: piece.row + row * 2) {
+                    if piece.canCapturePieceOf(type: pieceToCapture.pieceType) {
+                        captures.append(pieceToCapture)
+                    }
+                }
+            }
+        }
+        return !captures.isEmpty
     }
 
     private func tryCapture(piece: Piece, to: (column: Int, row: Int)) {
-        guard let captures = captures else {
+        guard !captures.isEmpty else {
             abandonMoveOf(piece: piece)
             return
         }
