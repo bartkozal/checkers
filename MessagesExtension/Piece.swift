@@ -18,7 +18,7 @@ enum PieceType: Int {
     }
 
     var symbol: String {
-        let symbols = ["w", "r", "wk", "rk"]
+        let symbols = ["w", "r", "k", "l"]
 
         return symbols[rawValue]
     }
@@ -27,8 +27,8 @@ enum PieceType: Int {
         let symbols: [String: PieceType] = [
             "w": .white,
             "r": .red,
-            "wk": .whiteKing,
-            "rk": .redKing
+            "k": .whiteKing,
+            "l": .redKing
         ]
         
         return symbols[symbol]
