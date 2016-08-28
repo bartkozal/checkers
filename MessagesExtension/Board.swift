@@ -43,12 +43,16 @@ class Board {
     }
 
     init(message: MSMessage?) {
-        if let message = message {
-            // TODO
-        } else {
+        guard let message = message, let url = message.url else {
             setUpBoard(with: newGameSetupKey)
+            return
         }
 
+        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+            for item in components.queryItems! where item.name == "board" {
+                setUpBoard(with: item.value!)
+            }
+        }
     }
 
     private func setUpBoard(with setup: String) {

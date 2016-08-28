@@ -91,8 +91,12 @@ extension MessagesViewController: GameViewControllerDelegate {
         let layout = MSMessageTemplateLayout()
         layout.image = gameSnapshot
 
+        var components = URLComponents()
+        components.queryItems = [URLQueryItem(name: "board", value: boardSetup)]
+
         let message = MSMessage(session: session)
         message.layout = layout
+        message.url = components.url
         message.summaryText = "Did a move"
         
         conversation?.insert(message)

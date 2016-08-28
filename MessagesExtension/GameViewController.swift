@@ -26,7 +26,6 @@ class GameViewController: UIViewController {
 
     @IBAction private func tapConfirmMoveButton() {
         delegate?.didMove(setup: board.setupKey, snapshot: getGameSnapshot())
-        print(board.setupKey)
     }
 
     private func getGameSnapshot() -> UIImage {
