@@ -93,7 +93,6 @@ class GameScene: SKScene {
             } else {
                 tryMove(piece: piece, to: (column, row))
                 tryCrown(piece: piece)
-                gameSceneDelegate?.didFinishMove()
             }
         } else {
             abandonMoveOf(piece: piece)
@@ -173,6 +172,7 @@ class GameScene: SKScene {
         }
 
         board.move(piece: piece, to: to)
+        gameSceneDelegate?.didFinishMove()
 
         let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
         movement.timingMode = .linear
