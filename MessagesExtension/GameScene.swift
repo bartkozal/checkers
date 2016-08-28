@@ -82,6 +82,8 @@ class GameScene: SKScene {
                 tryMove(piece: piece, to: (column, row))
                 tryCrown(piece: piece)
             }
+
+            gameSceneDelegate?.didFinishMove()
         } else {
             abandonMoveOf(piece: piece)
         }
@@ -100,10 +102,8 @@ class GameScene: SKScene {
             return false
         }
 
-        let capturedColumn = piece.column + (to.column - piece.column) / 2
-        let capturedRow = piece.row + (to.row - piece.row) / 2
-
-        guard let captured = board.pieceAt(column: capturedColumn, row: capturedRow) else {
+        let toCapture = piece.toCaptureOnMoveTo(column: to.column, row: to.row)
+        guard let captured = board.pieceAt(column: toCapture.column, row: toCapture.row) else {
             return false
         }
 
@@ -113,7 +113,6 @@ class GameScene: SKScene {
 
         board.capture(piece: captured)
         board.move(piece: piece, to: to)
-        gameSceneDelegate?.didFinishMove()
 
         let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
         movement.timingMode = .linear

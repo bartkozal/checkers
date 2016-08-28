@@ -95,4 +95,16 @@ class Piece {
             return pieceType == .white || pieceType == .whiteKing
         }
     }
+
+    func toCaptureOnMoveTo(column: Int, row: Int) -> (column: Int, row: Int) {
+        switch pieceType {
+        case .white, .red:
+            let column = self.column + (column - self.column) / 2
+            let row = self.row + (row - self.row) / 2
+            return (column, row)
+        case .whiteKing, .redKing:
+            // TODO
+            return (column, row)
+        }
+    }
 }
