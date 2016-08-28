@@ -9,7 +9,7 @@
 import SpriteKit
 
 protocol GameSceneDelegate: class {
-    func didMove()
+    func didFinishMove()
 }
 
 class GameScene: SKScene {
@@ -105,7 +105,7 @@ class GameScene: SKScene {
         }
 
         board.move(piece: piece, to: to)
-        gameSceneDelegate?.didMove()
+        gameSceneDelegate?.didFinishMove()
 
         let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
         movement.timingMode = .linear

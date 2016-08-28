@@ -62,7 +62,7 @@ class GameViewController: UIViewController {
 }
 
 extension GameViewController: GameSceneDelegate {
-    func didMove() {
+    func didFinishMove() {
         undoButton.isEnabled = true
         confirmButton.isEnabled = true
         skView.isUserInteractionEnabled = false
