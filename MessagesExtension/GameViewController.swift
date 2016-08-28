@@ -35,6 +35,7 @@ class GameViewController: UIViewController {
         scene.renderBoard()
         undoButton.isEnabled = false
         confirmButton.isEnabled = false
+        skView.isUserInteractionEnabled = true
     }
 
     private func getGameSnapshot() -> UIImage {
@@ -64,5 +65,6 @@ extension GameViewController: GameSceneDelegate {
     func didMove() {
         undoButton.isEnabled = true
         confirmButton.isEnabled = true
+        skView.isUserInteractionEnabled = false
     }
 }
