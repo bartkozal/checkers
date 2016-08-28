@@ -36,21 +36,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXr-rl-rRi">
-                                <state key="normal" title="Confirm"/>
-                                <connections>
-                                    <action selector="tapConfirmMoveButton" destination="NsR-dU-caD" eventType="touchUpInside" id="zhj-FF-caE"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-eu-D4a">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNy-8M-1Ao">
+                                        <state key="normal" title="Undo"/>
+                                        <connections>
+                                            <action selector="tapUndoMoveButton" destination="NsR-dU-caD" eventType="touchUpInside" id="q4i-pr-Nln"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXr-rl-rRi">
+                                        <state key="normal" title="Confirm"/>
+                                        <connections>
+                                            <action selector="tapConfirmMoveButton" destination="NsR-dU-caD" eventType="touchUpInside" id="zhj-FF-caE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iXr-rl-rRi" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="La7-J0-fd3"/>
-                            <constraint firstItem="sD6-CB-hY6" firstAttribute="top" secondItem="iXr-rl-rRi" secondAttribute="bottom" constant="8" id="RE0-KD-iL0"/>
+                            <constraint firstItem="rgr-eu-D4a" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="6yh-DG-NtU"/>
+                            <constraint firstItem="sD6-CB-hY6" firstAttribute="top" secondItem="rgr-eu-D4a" secondAttribute="bottom" constant="8" id="ajc-q0-eE0"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="confirmMoveButton" destination="iXr-rl-rRi" id="qJb-nW-NhY"/>
+                        <outlet property="buttonsView" destination="rgr-eu-D4a" id="bVU-oP-IJi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0z-AN-wOI" userLabel="First Responder" sceneMemberID="firstResponder"/>

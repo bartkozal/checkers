@@ -123,12 +123,14 @@ class GameScene: SKScene {
     }
 
     func renderBoard() {
+        boardLayer.removeAllChildren()
+        piecesLayer.removeAllChildren()
+
         for row in 0..<boardSize {
             for column in 0..<boardSize {
                 let size = CGSize(width: tileSize, height: tileSize)
                 let color = tileColorFor(column: column, row: row)
                 let position = pointFor(column: column, row: row)
-
                 let tileNode = SKSpriteNode(color: color, size: size)
                 tileNode.position = position
                 boardLayer.addChild(tileNode)
