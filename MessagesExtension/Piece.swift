@@ -71,9 +71,24 @@ class Piece {
                    self.column + 2 == column && self.row - 2 == row ||
                    self.column - 2 == column && self.row - 2 == row
         case .whiteKing, .redKing:
-            // TODO
-            return false
+            return abs(self.column - column) == abs(self.row - row)
         }
+    }
+
+    func canCapturePieceOf(type pieceType: PieceType) -> Bool {
+        switch self.pieceType {
+        case .white, .whiteKing:
+            return pieceType == .red || pieceType == .redKing
+        case .red, .redKing:
+            return pieceType == .white || pieceType == .whiteKing
+        }
+    }
+
+    func toCaptureOnMoveTo(column: Int, row: Int) -> (column: Int, row: Int) {
+        let column = self.column + (column - self.column - 1)
+        let row = self.row + (row - self.row - 1)
+
+        return (column, row)
     }
 
     func canCrownOn(row: Int) -> Bool {
@@ -87,24 +102,14 @@ class Piece {
         }
     }
 
-    func canCapture(type pieceType: PieceType) -> Bool {
-        switch self.pieceType {
-        case .white, .whiteKing:
-            return pieceType == .red || pieceType == .redKing
-        case .red, .redKing:
-            return pieceType == .white || pieceType == .whiteKing
-        }
-    }
-
-    func toCaptureOnMoveTo(column: Int, row: Int) -> (column: Int, row: Int) {
+    func crown() {
         switch pieceType {
-        case .white, .red:
-            let column = self.column + (column - self.column) / 2
-            let row = self.row + (row - self.row) / 2
-            return (column, row)
-        case .whiteKing, .redKing:
-            // TODO
-            return (column, row)
+        case .white:
+            self.pieceType = .whiteKing
+        case .red:
+            self.pieceType = .redKing
+        default:
+            return
         }
     }
 }

@@ -21,7 +21,9 @@ class GameScene: SKScene {
     let piecesLayer = SKNode()
 
     var board: Board!
-    var selectedPiece: Piece?
+    var draggedPiece: Piece?
+    var captures: [Piece]?
+    var capturing = false
 
     weak var gameSceneDelegate: GameSceneDelegate?
 
@@ -52,16 +54,19 @@ class GameScene: SKScene {
 
         if success {
             if let piece = board.pieceAt(column: column, row: row) {
-                selectedPiece = piece
-                selectedPiece?.sprite?.zPosition = 1.0
-                selectedPiece?.sprite?.size = CGSize(width: tileSize * 2, height: tileSize * 2)
-                selectedPiece?.sprite?.position = location
+                draggedPiece = piece
+
+                capturing = capturesFor(piece: piece)
+
+                piece.sprite?.zPosition = 1.0
+                piece.sprite?.size = CGSize(width: tileSize * 2, height: tileSize * 2)
+                piece.sprite?.position = location
             }
         }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let piece = selectedPiece else { return }
+        guard let piece = draggedPiece else { return }
         guard let touch = touches.first else { return }
         let location = touch.location(in: piecesLayer)
         let (success, _, _) = convert(point: location)
@@ -72,57 +77,86 @@ class GameScene: SKScene {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let piece = selectedPiece else { return }
+        guard let piece = draggedPiece else { return }
         guard let touch = touches.first else { return }
         let location = touch.location(in: piecesLayer)
         let (success, column, row) = convert(point: location)
 
-        if success && !board.isPieceAt(column: column, row: row) {
-            if !tryCapture(piece: piece, to: (column, row)) {
+        if success {
+            if capturing {
+                tryCapture(piece: piece, to: (column, row))
+
+                if !capturesFor(piece: piece) {
+                    capturing = false
+                    gameSceneDelegate?.didFinishMove()
+                }
+            } else {
                 tryMove(piece: piece, to: (column, row))
                 tryCrown(piece: piece)
+                gameSceneDelegate?.didFinishMove()
             }
-
-            gameSceneDelegate?.didFinishMove()
         } else {
             abandonMoveOf(piece: piece)
         }
 
         piece.sprite?.zPosition = 0.0
         piece.sprite?.size = CGSize(width: tileSize, height: tileSize)
-        selectedPiece = nil
+        draggedPiece = nil
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchesEnded(touches, with: event)
     }
 
-    private func tryCapture(piece: Piece, to: (column: Int, row: Int)) -> Bool {
+    private func capturesFor(piece: Piece) -> Bool {
+        // TODO list of pieces to capture
+        return false
+    }
+
+    private func tryCapture(piece: Piece, to: (column: Int, row: Int)) {
+        guard let captures = captures else {
+            abandonMoveOf(piece: piece)
+            return
+        }
+
+        guard !board.isPieceAt(column: to.column, row: to.row) else {
+            abandonMoveOf(piece: piece)
+            return
+        }
+
         guard piece.canMoveOnCaptureTo(column: to.column, row: to.row) else {
-            return false
+            abandonMoveOf(piece: piece)
+            return
         }
 
+        var pieceToCapture: Piece?
         let toCapture = piece.toCaptureOnMoveTo(column: to.column, row: to.row)
-        guard let captured = board.pieceAt(column: toCapture.column, row: toCapture.row) else {
-            return false
+        for capture in captures where capture.column == toCapture.column && capture.row == toCapture.row {
+            pieceToCapture = capture
         }
 
-        guard piece.canCapture(type: captured.pieceType) else {
-            return false
+        if let capturedPiece = pieceToCapture {
+            guard piece.canCapturePieceOf(type: capturedPiece.pieceType) else {
+                abandonMoveOf(piece: piece)
+                return
+            }
+
+            board.capture(piece: capturedPiece)
+            board.move(piece: piece, to: to)
+
+            let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
+            movement.timingMode = .linear
+            capturedPiece.sprite?.removeFromParent()
+            piece.sprite?.run(movement)
         }
-
-        board.capture(piece: captured)
-        board.move(piece: piece, to: to)
-
-        let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
-        movement.timingMode = .linear
-        captured.sprite?.removeFromParent()
-        piece.sprite?.run(movement)
-
-        return true
     }
 
     private func tryMove(piece: Piece, to: (column: Int, row: Int)) {
+        guard !board.isPieceAt(column: to.column, row: to.row) else {
+            abandonMoveOf(piece: piece)
+            return
+        }
+
         guard piece.canMoveTo(column: to.column, row: to.row) else {
             abandonMoveOf(piece: piece)
             return
@@ -141,14 +175,7 @@ class GameScene: SKScene {
 
     private func tryCrown(piece: Piece) {
         if piece.canCrownOn(row: piece.row) {
-            switch piece.pieceType {
-            case .white:
-                piece.pieceType = .whiteKing
-            case .red:
-                piece.pieceType = .redKing
-            default:
-                return
-            }
+            piece.crown()
         }
     }
 
