@@ -20,8 +20,6 @@ class GameScene: SKScene {
     let gameLayer = SKNode()
     let boardLayer = SKNode()
     let piecesLayer = SKNode()
-    let redPiecesLayer = SKNode()
-    let whitePiecesLayer = SKNode()
 
     var board: Board!
     var draggedPiece: Piece?
@@ -56,7 +54,7 @@ class GameScene: SKScene {
         let (success, column, row) = convert(point: location)
 
         if success {
-            if let piece = board.pieceAt(column: column, row: row) {
+            if let piece = board.pieceAt(column: column, row: row), piece.pieceSet == board.pieceSet {
                 draggedPiece = piece
 
                 capturing = capturesFor(piece: piece)
@@ -195,18 +193,6 @@ class GameScene: SKScene {
     func renderBoard() {
         boardLayer.removeAllChildren()
         piecesLayer.removeAllChildren()
-        redPiecesLayer.removeAllChildren()
-        whitePiecesLayer.removeAllChildren()
-
-        piecesLayer.addChild(redPiecesLayer)
-        piecesLayer.addChild(whitePiecesLayer)
-
-        switch board.pieceSet {
-        case .red:
-            whitePiecesLayer.isUserInteractionEnabled = false
-        case .white:
-            redPiecesLayer.isUserInteractionEnabled = false
-        }
 
         for row in 0..<boardSize {
             for column in 0..<boardSize {
@@ -222,12 +208,7 @@ class GameScene: SKScene {
                     sprite.size = CGSize(width: pieceSize, height: pieceSize)
                     sprite.position = position
 
-                    switch piece.pieceSet {
-                    case .white:
-                        whitePiecesLayer.addChild(sprite)
-                    case .red:
-                        redPiecesLayer.addChild(sprite)
-                    }
+                    piecesLayer.addChild(sprite)
 
                     piece.sprite = sprite
                 }
