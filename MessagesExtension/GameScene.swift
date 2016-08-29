@@ -20,6 +20,8 @@ class GameScene: SKScene {
     let gameLayer = SKNode()
     let boardLayer = SKNode()
     let piecesLayer = SKNode()
+    let redPiecesLayer = SKNode()
+    let whitePiecesLayer = SKNode()
 
     var board: Board!
     var draggedPiece: Piece?
@@ -34,8 +36,8 @@ class GameScene: SKScene {
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
         let background = SKSpriteNode(color: Settings.backgroundColor, size: size)
-        addChild(background)
 
+        addChild(background)
         addChild(gameLayer)
 
         let layerPosition = CGPoint(x: -tileSize * CGFloat(boardSize) / 2,
@@ -193,6 +195,11 @@ class GameScene: SKScene {
     func renderBoard() {
         boardLayer.removeAllChildren()
         piecesLayer.removeAllChildren()
+        redPiecesLayer.removeAllChildren()
+        whitePiecesLayer.removeAllChildren()
+
+        piecesLayer.addChild(redPiecesLayer)
+        piecesLayer.addChild(whitePiecesLayer)
 
         for row in 0..<boardSize {
             for column in 0..<boardSize {
@@ -207,7 +214,14 @@ class GameScene: SKScene {
                     let sprite = piece.sprite ?? SKSpriteNode(imageNamed: piece.spriteName)
                     sprite.size = CGSize(width: pieceSize, height: pieceSize)
                     sprite.position = position
-                    piecesLayer.addChild(sprite)
+
+                    switch piece.pieceSet {
+                    case .white:
+                        whitePiecesLayer.addChild(sprite)
+                    case .red:
+                        redPiecesLayer.addChild(sprite)
+                    }
+
                     piece.sprite = sprite
                 }
             }
