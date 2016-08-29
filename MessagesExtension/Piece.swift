@@ -8,29 +8,28 @@
 
 import SpriteKit
 
-enum PieceType: Int {
-    case white, red, whiteKing, redKing
+enum PieceType: String {
+    case pawn, king
 
-    var spriteName: String {
-        let spriteNames = ["white-piece", "red-piece", "white-king", "red-king"]
-
-        return spriteNames[rawValue]
-    }
-
-    var symbol: String {
-        let symbols = ["w", "r", "k", "l"]
-
-        return symbols[rawValue]
-    }
-
-    static func bySymbol(_ symbol: String) -> PieceType? {
+    static func symbol(_ symbol: String) -> PieceType? {
         let symbols: [String: PieceType] = [
-            "w": .white,
-            "r": .red,
-            "k": .whiteKing,
-            "l": .redKing
+            "p": .pawn,
+            "k": .king
         ]
-        
+
+        return symbols[symbol]
+    }
+}
+
+enum PieceSet: String {
+    case white, red
+
+    static func symbol(_ symbol: String) -> PieceSet? {
+        let symbols: [String: PieceSet] = [
+            "w": .white,
+            "r": .red
+        ]
+
         return symbols[symbol]
     }
 }
@@ -40,47 +39,63 @@ class Piece {
     var row: Int
     var pieceType: PieceType {
         didSet {
-            sprite?.texture = SKTexture(imageNamed: pieceType.spriteName)
+            sprite?.texture = SKTexture(imageNamed: spriteName)
+        }
+    }
+    var pieceSet: PieceSet
+    var sprite: SKSpriteNode?
+    var spriteName: String {
+        return "\(pieceSet)-\(pieceType)"
+    }
+    var symbol: String {
+        switch (pieceType, pieceSet) {
+        case (.pawn, .white):
+            return "pw"
+        case (.pawn, .red):
+            return "pr"
+        case (.king, .white):
+            return "kw"
+        case (.king, .red):
+            return "kr"
         }
     }
 
-    var sprite: SKSpriteNode?
-
-    init(column: Int, row: Int, pieceType: PieceType) {
+    init(column: Int, row: Int, pieceType: PieceType, pieceSet: PieceSet) {
         self.column = column
         self.row = row
         self.pieceType = pieceType
+        self.pieceSet = pieceSet
     }
 
     func canMoveTo(column: Int, row: Int) -> Bool {
-        switch pieceType {
-        case .white:
+        switch (pieceType, pieceSet) {
+        case (.pawn, .white):
             return self.column + 1 == column && self.row + 1 == row || self.column - 1 == column && self.row + 1 == row
-        case .red:
+        case (.pawn, .red):
             return self.column + 1 == column && self.row - 1 == row || self.column - 1 == column && self.row - 1 == row
-        case .whiteKing, .redKing:
+        case (.king, .white), (.king, .red):
             return abs(self.column - column) == abs(self.row - row)
         }
     }
 
     func canMoveOnCaptureTo(column: Int, row: Int) -> Bool {
         switch pieceType {
-        case .white, .red:
+        case .pawn:
             return self.column + 2 == column && self.row + 2 == row ||
                    self.column - 2 == column && self.row + 2 == row ||
                    self.column + 2 == column && self.row - 2 == row ||
                    self.column - 2 == column && self.row - 2 == row
-        case .whiteKing, .redKing:
+        case .king:
             return abs(self.column - column) == abs(self.row - row)
         }
     }
 
-    func canCapturePieceOf(type pieceType: PieceType) -> Bool {
-        switch self.pieceType {
-        case .white, .whiteKing:
-            return pieceType == .red || pieceType == .redKing
-        case .red, .redKing:
-            return pieceType == .white || pieceType == .whiteKing
+    func canCapturePieceOf(set pieceSet: PieceSet) -> Bool {
+        switch self.pieceSet {
+        case .white:
+            return pieceSet == .red
+        case .red:
+            return pieceSet == .white
         }
     }
 
@@ -91,10 +106,10 @@ class Piece {
     }
 
     func canCrownOn(row: Int) -> Bool {
-        switch pieceType {
-        case .white:
+        switch (pieceType, pieceSet) {
+        case (.pawn, .white):
             return row == Settings.boardSize - 1
-        case .red:
+        case (.pawn, .red):
             return row == 0
         default:
             return false
@@ -102,13 +117,6 @@ class Piece {
     }
 
     func crown() {
-        switch pieceType {
-        case .white:
-            self.pieceType = .whiteKing
-        case .red:
-            self.pieceType = .redKing
-        default:
-            return
-        }
+        self.pieceType = .king
     }
 }

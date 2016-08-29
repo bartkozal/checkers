@@ -10,7 +10,7 @@ import Messages
 
 class Board {
     private var pieces: Array2D<Piece>!
-    private let newGameSetupKey = "w00,w20,w40,w60,w11,w31,w51,w71,w02,w22,w42,w62,r15,r35,r55,r75,r06,r26,r46,r66,r17,r37,r57,r77"
+    private let newGameSetupKey = "pw00,pw20,pw40,pw60,pw11,pw31,pw51,pw71,pw02,pw22,pw42,pw62,pr15,pr35,pr55,pr75,pr06,pr26,pr46,pr66,pr17,pr37,pr57,pr77"
     var initialSetupKey: String!
 
     var setupKey: String {
@@ -19,7 +19,7 @@ class Board {
             for row in 0..<Settings.boardSize {
                 for column in 0..<Settings.boardSize {
                     if let piece = pieces[column, row] {
-                        setup.append("\(piece.pieceType.symbol)\(piece.column)\(piece.row)")
+                        setup.append("\(piece.symbol)\(piece.column)\(piece.row)")
                     }
                 }
             }
@@ -74,11 +74,12 @@ class Board {
 
         for piece in setup.components(separatedBy: ",") {
             let setup = Array(piece.characters)
-            let pieceType = PieceType.bySymbol(String(setup[0]))!
-            let column = Int(String(setup[1]))!
-            let row = Int(String(setup[2]))!
+            let pieceType = PieceType.symbol(String(setup[0]))!
+            let pieceSet = PieceSet.symbol(String(setup[1]))!
+            let column = Int(String(setup[2]))!
+            let row = Int(String(setup[3]))!
 
-            pieces[column, row] = Piece(column: column, row: row, pieceType: pieceType)
+            pieces[column, row] = Piece(column: column, row: row, pieceType: pieceType, pieceSet: pieceSet)
         }
     }
 }

@@ -114,7 +114,7 @@ class GameScene: SKScene {
             for column in [-1, 1] {
                 if let pieceToCapture = board.pieceAt(column: piece.column + column, row: piece.row + row),
                     !board.isPieceAt(column: piece.column + column * 2, row: piece.row + row * 2) {
-                    if piece.canCapturePieceOf(type: pieceToCapture.pieceType) {
+                    if piece.canCapturePieceOf(set: pieceToCapture.pieceSet) {
                         captures.append(pieceToCapture)
                     }
                 }
@@ -146,7 +146,7 @@ class GameScene: SKScene {
         }
 
         if let capturedPiece = pieceToCapture {
-            guard piece.canCapturePieceOf(type: capturedPiece.pieceType) else {
+            guard piece.canCapturePieceOf(set: capturedPiece.pieceSet) else {
                 abandonMoveOf(piece: piece)
                 return
             }
@@ -204,7 +204,7 @@ class GameScene: SKScene {
                 boardLayer.addChild(tileNode)
 
                 if let piece = board.pieceAt(column: column, row: row) {
-                    let sprite = piece.sprite ?? SKSpriteNode(imageNamed: piece.pieceType.spriteName)
+                    let sprite = piece.sprite ?? SKSpriteNode(imageNamed: piece.spriteName)
                     sprite.size = CGSize(width: pieceSize, height: pieceSize)
                     sprite.position = position
                     piecesLayer.addChild(sprite)
