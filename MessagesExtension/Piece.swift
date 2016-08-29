@@ -11,6 +11,10 @@ import SpriteKit
 enum PieceType: String {
     case pawn, king
 
+    var symbol: String {
+        return String(rawValue.characters.first!)
+    }
+
     static func symbol(_ symbol: String) -> PieceType? {
         let symbols: [String: PieceType] = [
             "p": .pawn,
@@ -23,6 +27,10 @@ enum PieceType: String {
 
 enum PieceSet: String {
     case white, red
+
+    var symbol: String {
+        return String(rawValue.characters.first!)
+    }
 
     static func symbol(_ symbol: String) -> PieceSet? {
         let symbols: [String: PieceSet] = [
@@ -48,16 +56,7 @@ class Piece {
         return "\(pieceSet)-\(pieceType)"
     }
     var symbol: String {
-        switch (pieceType, pieceSet) {
-        case (.pawn, .white):
-            return "pw"
-        case (.pawn, .red):
-            return "pr"
-        case (.king, .white):
-            return "kw"
-        case (.king, .red):
-            return "kr"
-        }
+        return "\(pieceType.symbol)\(pieceSet.symbol)"
     }
 
     init(column: Int, row: Int, pieceType: PieceType, pieceSet: PieceSet) {

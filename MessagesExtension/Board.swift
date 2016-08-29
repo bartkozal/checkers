@@ -10,10 +10,9 @@ import Messages
 
 class Board {
     private var pieces: Array2D<Piece>!
-    private let newGameSetupKey = "pw00,pw20,pw40,pw60,pw11,pw31,pw51,pw71,pw02,pw22,pw42,pw62,pr15,pr35,pr55,pr75,pr06,pr26,pr46,pr66,pr17,pr37,pr57,pr77"
-    var initialSetupKey: String!
-
-    var setupKey: String {
+    var undoToSetup = Settings.newGameSetup
+    var setup = Settings.newGameSetup
+    var setupValue: String {
         get {
             var setup: [String] = []
             for row in 0..<Settings.boardSize {
@@ -28,6 +27,16 @@ class Board {
 
         set {
             setUpBoard(with: newValue)
+        }
+    }
+
+    var pieceSet = PieceSet.white
+    var pieceSetValue: String {
+        switch pieceSet {
+        case .white:
+            return PieceSet.red.symbol
+        case .red:
+            return PieceSet.white.symbol
         }
     }
 
@@ -55,17 +64,23 @@ class Board {
 
     init(message: MSMessage?) {
         guard let message = message, let url = message.url else {
-            initialSetupKey = newGameSetupKey
-            setUpBoard(with: initialSetupKey)
+            setUpBoard(with: setup)
             return
         }
 
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-            for item in components.queryItems! where item.name == "board" {
-                let setupKey = item.value!
-                initialSetupKey = setupKey
-                setUpBoard(with: initialSetupKey)
+            for item in components.queryItems! {
+                if item.name == "board" {
+                    setup = item.value!
+                    undoToSetup = item.value!
+                }
+
+                if item.name == "set" {
+                    pieceSet = PieceSet.symbol(item.value!)!
+                }
             }
+
+            setUpBoard(with: setup)
         }
     }
 
@@ -73,11 +88,11 @@ class Board {
         pieces = Array2D<Piece>(columns: Settings.boardSize, rows: Settings.boardSize)
 
         for piece in setup.components(separatedBy: ",") {
-            let setup = Array(piece.characters)
-            let pieceType = PieceType.symbol(String(setup[0]))!
-            let pieceSet = PieceSet.symbol(String(setup[1]))!
-            let column = Int(String(setup[2]))!
-            let row = Int(String(setup[3]))!
+            let characters = Array(piece.characters)
+            let pieceType = PieceType.symbol(String(characters[0]))!
+            let pieceSet = PieceSet.symbol(String(characters[1]))!
+            let column = Int(String(characters[2]))!
+            let row = Int(String(characters[3]))!
 
             pieces[column, row] = Piece(column: column, row: row, pieceType: pieceType, pieceSet: pieceSet)
         }

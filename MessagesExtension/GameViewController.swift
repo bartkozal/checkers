@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 
 protocol GameViewControllerDelegate: class {
-    func didMove(setup boardSetup: String, snapshot gameSnapshot: UIImage)
+    func didMove(setupValue: String, pieceSetValue: String, snapshot gameSnapshot: UIImage)
 }
 
 class GameViewController: UIViewController {
@@ -27,11 +27,11 @@ class GameViewController: UIViewController {
     @IBOutlet weak var confirmButton: UIButton!
 
     @IBAction private func tapConfirmButton() {
-        delegate?.didMove(setup: board.setupKey, snapshot: getGameSnapshot())
+        delegate?.didMove(setupValue: board.setupValue, pieceSetValue: board.pieceSetValue, snapshot: getGameSnapshot())
     }
 
     @IBAction private func tapUndoButton() {
-        board.setupKey = board.initialSetupKey
+        board.setup = board.undoToSetup
         scene.renderBoard()
         undoButton.isEnabled = false
         confirmButton.isEnabled = false

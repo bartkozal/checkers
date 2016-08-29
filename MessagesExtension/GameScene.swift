@@ -201,6 +201,13 @@ class GameScene: SKScene {
         piecesLayer.addChild(redPiecesLayer)
         piecesLayer.addChild(whitePiecesLayer)
 
+        switch board.pieceSet {
+        case .red:
+            whitePiecesLayer.isUserInteractionEnabled = false
+        case .white:
+            redPiecesLayer.isUserInteractionEnabled = false
+        }
+
         for row in 0..<boardSize {
             for column in 0..<boardSize {
                 let size = CGSize(width: tileSize, height: tileSize)

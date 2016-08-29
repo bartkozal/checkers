@@ -82,7 +82,7 @@ extension MessagesViewController: MenuViewControllerDelegate {
 }
 
 extension MessagesViewController: GameViewControllerDelegate {
-    func didMove(setup boardSetup: String, snapshot gameSnapshot: UIImage) {
+    func didMove(setupValue: String, pieceSetValue: String, snapshot gameSnapshot: UIImage) {
         requestPresentationStyle(.compact)
 
         let conversation = activeConversation
@@ -92,7 +92,9 @@ extension MessagesViewController: GameViewControllerDelegate {
         layout.image = gameSnapshot
 
         var components = URLComponents()
-        components.queryItems = [URLQueryItem(name: "board", value: boardSetup)]
+        let boardQueryItem = URLQueryItem(name: "board", value: setupValue)
+        let setQueryItem = URLQueryItem(name: "set", value: pieceSetValue)
+        components.queryItems = [boardQueryItem, setQueryItem]
 
         let message = MSMessage(session: session)
         message.layout = layout
