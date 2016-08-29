@@ -119,3 +119,7 @@ class Piece {
         self.pieceType = .king
     }
 }
+
+func ==(lhs: Piece, rhs: Piece) -> Bool {
+    return lhs.column == rhs.column && lhs.row == rhs.row
+}

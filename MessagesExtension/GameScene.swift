@@ -25,6 +25,7 @@ class GameScene: SKScene {
     var draggedPiece: Piece?
     var captures = [Piece]()
     var capturing = false
+    var capturingPiece: Piece?
 
     weak var gameSceneDelegate: GameSceneDelegate?
 
@@ -55,6 +56,10 @@ class GameScene: SKScene {
 
         if success {
             if let piece = board.pieceAt(column: column, row: row), piece.pieceSet == board.pieceSet {
+                if capturingPiece != nil {
+                    guard piece == capturingPiece! else { return }
+                }
+
                 draggedPiece = piece
 
                 capturing = capturesFor(piece: piece)
@@ -89,6 +94,7 @@ class GameScene: SKScene {
 
                 if !capturesFor(piece: piece) {
                     capturing = false
+                    capturingPiece = nil
                     gameSceneDelegate?.didFinishMove()
                 }
             } else {
@@ -153,6 +159,7 @@ class GameScene: SKScene {
 
             board.capture(piece: capturedPiece)
             board.move(piece: piece, to: to)
+            capturingPiece = piece
 
             let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
             movement.timingMode = .linear
