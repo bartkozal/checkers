@@ -10,24 +10,29 @@ import Messages
 
 class Board {
     private var pieces: Array2D<Piece>!
+    private var _setup: String!
+
     var undoToSetup = Settings.newGameSetup
-    var setup = Settings.newGameSetup
-    var setupValue: String {
+    var setup: String {
         get {
-            var setup: [String] = []
-            for row in 0..<Settings.boardSize {
-                for column in 0..<Settings.boardSize {
-                    if let piece = pieces[column, row] {
-                        setup.append("\(piece.symbol)\(piece.column)\(piece.row)")
-                    }
-                }
-            }
-            return setup.joined(separator: ",")
+            return _setup
         }
 
         set {
             setUpBoard(with: newValue)
+            _setup = newValue
         }
+    }
+    var setupValue: String {
+        var setup: [String] = []
+        for row in 0..<Settings.boardSize {
+            for column in 0..<Settings.boardSize {
+                if let piece = pieces[column, row] {
+                    setup.append("\(piece.symbol)\(piece.column)\(piece.row)")
+                }
+            }
+        }
+        return setup.joined(separator: ",")
     }
 
     var pieceSet = PieceSet.white
@@ -64,7 +69,8 @@ class Board {
 
     init(message: MSMessage?) {
         guard let message = message, let url = message.url else {
-            setUpBoard(with: setup)
+            setup = Settings.newGameSetup
+            undoToSetup = Settings.newGameSetup
             return
         }
 
@@ -79,8 +85,6 @@ class Board {
                     pieceSet = PieceSet.symbol(item.value!)!
                 }
             }
-
-            setUpBoard(with: setup)
         }
     }
 
