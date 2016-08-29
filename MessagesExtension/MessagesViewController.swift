@@ -99,7 +99,7 @@ extension MessagesViewController: GameViewControllerDelegate {
         let message = MSMessage(session: session)
         message.layout = layout
         message.url = components.url
-        message.summaryText = "Did a move"
+        message.summaryText = "Did a move in Checkers!"
         
         conversation?.insert(message)
     }
