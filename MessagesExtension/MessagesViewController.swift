@@ -8,6 +8,7 @@
 
 import UIKit
 import Messages
+import SpriteKit
 
 class MessagesViewController: MSMessagesAppViewController {
     override func willBecomeActive(with conversation: MSConversation) {
@@ -73,6 +74,13 @@ class MessagesViewController: MSMessagesAppViewController {
 
         return gameVC
     }
+
+    func isSenderSameAsRecipient() -> Bool {
+        guard let conversation = activeConversation else { return false }
+        guard let message = conversation.selectedMessage else { return false }
+
+        return message.senderParticipantIdentifier == conversation.localParticipantIdentifier
+    }
 }
 
 extension MessagesViewController: MenuViewControllerDelegate {
@@ -102,5 +110,9 @@ extension MessagesViewController: GameViewControllerDelegate {
         message.summaryText = "Did a move in Checkers!"
         
         conversation?.insert(message)
+    }
+
+    func didLoadSpriteKit(view: SKView) {
+        view.isUserInteractionEnabled = !isSenderSameAsRecipient()
     }
 }
