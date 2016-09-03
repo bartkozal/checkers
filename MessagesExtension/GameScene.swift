@@ -13,8 +13,9 @@ protocol GameSceneDelegate: class {
 }
 
 class GameScene: SKScene {
-    let tileSize: CGFloat = 42.0
-    let pieceSize: CGFloat = 36.0
+    var tileSize: CGFloat!
+    var pieceSize: CGFloat!
+
     let boardSize = Settings.boardSize
 
     let gameLayer = SKNode()
@@ -33,8 +34,10 @@ class GameScene: SKScene {
         super.init(size: size)
 
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
-
         let background = SKSpriteNode(color: Settings.backgroundColor, size: size)
+
+        tileSize = size.width / 8
+        pieceSize = tileSize * 0.9
 
         addChild(background)
         addChild(gameLayer)
@@ -116,6 +119,7 @@ class GameScene: SKScene {
 
     private func capturesFor(piece: Piece) -> Bool {
         captures.removeAll()
+        // TODO bugs for "pr00,pr20,pr02,pr22,pw33" and kings movement
         for row in [-1, 1] {
             for column in [-1, 1] {
                 if let pieceToCapture = board.pieceAt(column: piece.column + column, row: piece.row + row),
