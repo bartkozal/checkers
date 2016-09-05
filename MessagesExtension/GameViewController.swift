@@ -62,6 +62,18 @@ class GameViewController: UIViewController {
         skView.presentScene(scene)
     }
 
+    override func viewWillLayoutSubviews() {
+        let horizontalSC = traitCollection.horizontalSizeClass
+        let verticalSC = traitCollection.verticalSizeClass
+
+        guard verticalSC == .compact && (horizontalSC == .compact || horizontalSC == .regular) else {
+            buttonsView.insertArrangedSubview(buttonsView.subviews[0], at: 0)
+            return
+        }
+
+        buttonsView.insertArrangedSubview(buttonsView.subviews[1], at: 0)
+    }
+
     override func viewDidLayoutSubviews() {
         skView.frame = boardView.frame
     }
