@@ -23,6 +23,7 @@ class GameViewController: UIViewController {
     var board: Board!
     var skView: SKView!
 
+    @IBOutlet weak var boardView: UIView!
     @IBOutlet weak var buttonsView: UIStackView!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
@@ -51,7 +52,6 @@ class GameViewController: UIViewController {
         skView.isMultipleTouchEnabled = false
         delegate?.didLoadSpriteKit(view: skView)
         view.addSubview(skView)
-        view.bringSubview(toFront: buttonsView)
 
         scene = GameScene(size: skView.bounds.size)
         scene.gameSceneDelegate = self
@@ -60,6 +60,10 @@ class GameViewController: UIViewController {
         scene.renderBoard()
 
         skView.presentScene(scene)
+    }
+
+    override func viewDidLayoutSubviews() {
+        skView.frame = boardView.frame
     }
 }
 

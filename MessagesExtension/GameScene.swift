@@ -34,12 +34,10 @@ class GameScene: SKScene {
         super.init(size: size)
 
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        let background = SKSpriteNode(color: Settings.backgroundColor, size: size)
 
         tileSize = size.width / 8
         pieceSize = tileSize * 0.9
 
-        addChild(background)
         addChild(gameLayer)
 
         let layerPosition = CGPoint(x: -tileSize * CGFloat(boardSize) / 2,
