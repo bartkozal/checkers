@@ -197,8 +197,8 @@ class GameScene: SKScene {
 
         let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
         movement.timingMode = .linear
-        piece.sprite?.run(movement) {
-            tryCrown(piece: piece)
+        piece.sprite?.run(movement) { [unowned self] in
+            self.tryCrown(piece: piece)
             self.gameSceneDelegate?.didFinishMove()
         }
     }
