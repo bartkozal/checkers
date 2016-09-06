@@ -111,17 +111,26 @@ class GameScene: SKScene {
 
     private func capturesFor(piece: Piece) -> Bool {
         captures.removeAll()
-        // TODO bugs for "pr00,pr20,pr02,pr22,pw33" and kings movement
+
         for row in [-1, 1] {
             for column in [-1, 1] {
-                if let pieceToCapture = board.pieceAt(column: piece.column + column, row: piece.row + row),
-                    !board.isPieceAt(column: piece.column + column * 2, row: piece.row + row * 2) {
-                    if piece.canCapturePieceOf(set: pieceToCapture.pieceSet) {
-                        captures.append(pieceToCapture)
-                    }
-                }
+                let rowToFinishMove = piece.row + row * 2
+                let columnToFinishMove = piece.column + column * 2
+                guard 0 ..< boardSize ~= rowToFinishMove else { continue }
+                guard 0 ..< boardSize ~= columnToFinishMove else { continue }
+                guard !board.isPieceAt(column: columnToFinishMove, row: rowToFinishMove) else { continue }
+
+                let rowToCaputre = piece.row + row
+                let columnToCapture = piece.column + column
+                guard let pieceToCapture = board.pieceAt(column: columnToCapture, row: rowToCaputre) else { continue }
+                guard piece.canCapturePieceOf(set: pieceToCapture.pieceSet) else { continue }
+
+                captures.append(pieceToCapture)
             }
         }
+
+        print(captures)
+
         return !captures.isEmpty
     }
 

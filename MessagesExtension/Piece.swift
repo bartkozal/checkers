@@ -42,21 +42,28 @@ enum PieceSet: String {
     }
 }
 
-class Piece {
+class Piece: CustomStringConvertible {
     var column: Int
     var row: Int
+    var pieceSet: PieceSet
+    var sprite: SKSpriteNode?
+
     var pieceType: PieceType {
         didSet {
             sprite?.texture = SKTexture(imageNamed: spriteName)
         }
     }
-    var pieceSet: PieceSet
-    var sprite: SKSpriteNode?
+
     var spriteName: String {
         return "\(pieceSet)-\(pieceType)"
     }
+
     var symbol: String {
         return "\(pieceType.symbol)\(pieceSet.symbol)"
+    }
+
+    var description: String {
+        return "\(pieceSet) \(pieceType), column: \(column), row: \(row)"
     }
 
     init(column: Int, row: Int, pieceType: PieceType, pieceSet: PieceSet) {
