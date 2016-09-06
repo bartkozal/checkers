@@ -94,7 +94,6 @@ class GameScene: SKScene {
                 tryCapture(piece: piece, to: (column, row))
             } else {
                 tryMove(piece: piece, to: (column, row))
-                tryCrown(piece: piece)
             }
         } else {
             abandonMoveOf(piece: piece)
@@ -199,6 +198,7 @@ class GameScene: SKScene {
         let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
         movement.timingMode = .linear
         piece.sprite?.run(movement) {
+            tryCrown(piece: piece)
             self.gameSceneDelegate?.didFinishMove()
         }
     }
