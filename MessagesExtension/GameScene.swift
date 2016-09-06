@@ -115,12 +115,14 @@ class GameScene: SKScene {
             for column in [-1, 1] {
                 let rowToFinishMove = piece.row + row * 2
                 let columnToFinishMove = piece.column + column * 2
+                
                 guard 0 ..< boardSize ~= rowToFinishMove else { continue }
                 guard 0 ..< boardSize ~= columnToFinishMove else { continue }
                 guard !board.isPieceAt(column: columnToFinishMove, row: rowToFinishMove) else { continue }
 
                 let rowToCaputre = piece.row + row
                 let columnToCapture = piece.column + column
+                
                 guard let pieceToCapture = board.pieceAt(column: columnToCapture, row: rowToCaputre) else { continue }
                 guard piece.canCapturePieceOf(set: pieceToCapture.pieceSet) else { continue }
 
@@ -191,6 +193,16 @@ class GameScene: SKScene {
         guard piece.canMoveTo(column: to.column, row: to.row) else {
             abandonMoveOf(piece: piece)
             return
+        }
+
+        if piece.pieceType == .king {
+            let distance = abs(to.column - piece.column)
+            for n in 1 ..< distance {
+                if board.isPieceAt(column: piece.column + n * ((to.column - piece.column) / distance), row: piece.row + n * ((to.row - piece.row) / distance)) {
+                    abandonMoveOf(piece: piece)
+                    return
+                }
+            }
         }
 
         board.move(piece: piece, to: to)
