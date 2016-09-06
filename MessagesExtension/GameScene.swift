@@ -92,12 +92,6 @@ class GameScene: SKScene {
         if success {
             if capturing {
                 tryCapture(piece: piece, to: (column, row))
-
-                if !capturesFor(piece: piece) {
-                    capturing = false
-                    capturingPiece = nil
-                    gameSceneDelegate?.didFinishMove()
-                }
             } else {
                 tryMove(piece: piece, to: (column, row))
                 tryCrown(piece: piece)
@@ -163,10 +157,20 @@ class GameScene: SKScene {
             board.move(piece: piece, to: to)
             capturingPiece = piece
 
+
             let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
             movement.timingMode = .linear
             capturedPiece.sprite?.removeFromParent()
-            piece.sprite?.run(movement)
+
+            if !capturesFor(piece: piece) {
+                capturing = false
+                capturingPiece = nil
+                piece.sprite?.run(movement) {
+                    self.gameSceneDelegate?.didFinishMove()
+                }
+            } else {
+                piece.sprite?.run(movement)
+            }
         }
     }
 
@@ -182,11 +186,12 @@ class GameScene: SKScene {
         }
 
         board.move(piece: piece, to: to)
-        gameSceneDelegate?.didFinishMove()
 
         let movement = SKAction.move(to: pointFor(column: to.column, row: to.row), duration: 0.1)
         movement.timingMode = .linear
-        piece.sprite?.run(movement)
+        piece.sprite?.run(movement) {
+            self.gameSceneDelegate?.didFinishMove()
+        }
     }
 
     private func abandonMoveOf(piece: Piece) {

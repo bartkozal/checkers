@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -42,103 +41,49 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="GKC-L7-eZC" secondAttribute="height" multiplier="1:1" id="1zU-Ka-caX"/>
-                                </constraints>
-                            </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-eu-D4a">
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNy-8M-1Ao" customClass="RoundedButton" customModule="MessagesExtension" customModuleProvider="target">
-                                        <state key="normal" title="Undo"/>
-                                        <connections>
-                                            <action selector="tapUndoButton" destination="NsR-dU-caD" eventType="touchUpInside" id="TQz-Jn-fGZ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXr-rl-rRi" customClass="RoundedButton" customModule="MessagesExtension" customModuleProvider="target">
-                                        <state key="normal" title="Confirm"/>
-                                        <connections>
-                                            <action selector="tapConfirmButton" destination="NsR-dU-caD" eventType="touchUpInside" id="VYI-zj-aTD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="KMF-pO-pZf">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                    <constraint firstAttribute="height" constant="580" id="EIA-nm-W1p">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="580"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="580" id="JT4-lx-LOK">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="580"/>
                                     </constraint>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="KMF-pO-pZf"/>
+                                        <exclude reference="EIA-nm-W1p"/>
+                                        <exclude reference="JT4-lx-LOK"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact-widthClass=compact" axis="vertical"/>
-                                <variation key="heightClass=compact-widthClass=regular" axis="vertical"/>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="KMF-pO-pZf"/>
+                                        <include reference="EIA-nm-W1p"/>
+                                        <include reference="JT4-lx-LOK"/>
                                     </mask>
                                 </variation>
-                            </stackView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rgr-eu-D4a" firstAttribute="centerY" secondItem="GKC-L7-eZC" secondAttribute="centerY" id="5cg-l6-AUg"/>
-                            <constraint firstAttribute="bottom" secondItem="rgr-eu-D4a" secondAttribute="bottom" priority="750" constant="44" id="AFg-Sm-ALz">
-                                <variation key="heightClass=regular-widthClass=regular" constant="46"/>
-                            </constraint>
+                            <constraint firstItem="GKC-L7-eZC" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="0Ir-2l-uCp"/>
+                            <constraint firstItem="GKC-L7-eZC" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="6tP-Qd-Ln5"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="Fs4-jH-NiW"/>
-                            <constraint firstAttribute="trailing" secondItem="GKC-L7-eZC" secondAttribute="trailing" priority="750" id="HUE-hR-Tol"/>
-                            <constraint firstAttribute="trailing" secondItem="GKC-L7-eZC" secondAttribute="trailing" id="Hnl-TG-aA9"/>
-                            <constraint firstItem="GKC-L7-eZC" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="HxG-nO-SYE"/>
-                            <constraint firstItem="GKC-L7-eZC" firstAttribute="leading" secondItem="mXW-FR-u3w" secondAttribute="leading" priority="750" id="Ml8-xy-lbu"/>
                             <constraint firstAttribute="bottom" secondItem="GKC-L7-eZC" secondAttribute="bottom" id="PwM-Eu-cZ7">
                                 <variation key="heightClass=compact" constant="46"/>
                             </constraint>
-                            <constraint firstItem="rgr-eu-D4a" firstAttribute="centerX" secondItem="GKC-L7-eZC" secondAttribute="centerX" id="QaK-r5-7BU"/>
-                            <constraint firstItem="GKC-L7-eZC" firstAttribute="top" secondItem="mXW-FR-u3w" secondAttribute="top" id="SqX-Wj-cJ1">
-                                <variation key="heightClass=regular-widthClass=regular" constant="87"/>
-                            </constraint>
-                            <constraint firstItem="rgr-eu-D4a" firstAttribute="top" secondItem="GKC-L7-eZC" secondAttribute="bottom" constant="16" id="T5X-7f-VSI"/>
-                            <constraint firstItem="rgr-eu-D4a" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="VAM-vi-voL"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="top" secondItem="mXW-FR-u3w" secondAttribute="top" id="Vs8-yk-lnA">
                                 <variation key="heightClass=compact" constant="66"/>
                             </constraint>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="leading" secondItem="mXW-FR-u3w" secondAttribute="leading" id="eLA-BB-Sr6"/>
-                            <constraint firstItem="GKC-L7-eZC" firstAttribute="leading" secondItem="mXW-FR-u3w" secondAttribute="leading" id="gzO-Eb-utb"/>
                             <constraint firstAttribute="trailing" secondItem="GKC-L7-eZC" secondAttribute="trailing" id="ip2-KR-10P"/>
-                            <constraint firstItem="rgr-eu-D4a" firstAttribute="width" secondItem="GKC-L7-eZC" secondAttribute="width" multiplier="0.5" id="kES-NU-twf"/>
-                            <constraint firstItem="rgr-eu-D4a" firstAttribute="height" secondItem="GKC-L7-eZC" secondAttribute="height" multiplier="0.35" id="nB8-fZ-2YM">
-                                <variation key="heightClass=compact" constant="0.0"/>
-                            </constraint>
-                            <constraint firstItem="rgr-eu-D4a" firstAttribute="leading" secondItem="mXW-FR-u3w" secondAttribute="leading" constant="16" id="q78-cz-sU7"/>
-                            <constraint firstAttribute="trailing" secondItem="rgr-eu-D4a" secondAttribute="trailing" constant="16" id="qhj-4P-Ykc"/>
-                            <constraint firstAttribute="bottom" secondItem="rgr-eu-D4a" secondAttribute="bottom" priority="750" constant="55" id="slx-xR-pfI"/>
-                            <constraint firstItem="rgr-eu-D4a" firstAttribute="leading" secondItem="GKC-L7-eZC" secondAttribute="trailing" id="t81-gR-avt">
-                                <variation key="heightClass=compact" constant="16"/>
-                            </constraint>
-                            <constraint firstAttribute="trailing" secondItem="rgr-eu-D4a" secondAttribute="trailing" id="tLb-VU-5jE">
-                                <variation key="heightClass=compact" constant="16"/>
-                            </constraint>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="zew-m9-aVp"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="HUE-hR-Tol"/>
-                                <exclude reference="Hnl-TG-aA9"/>
-                                <exclude reference="HxG-nO-SYE"/>
-                                <exclude reference="Ml8-xy-lbu"/>
+                                <exclude reference="0Ir-2l-uCp"/>
+                                <exclude reference="6tP-Qd-Ln5"/>
                                 <exclude reference="PwM-Eu-cZ7"/>
-                                <exclude reference="SqX-Wj-cJ1"/>
                                 <exclude reference="Vs8-yk-lnA"/>
-                                <exclude reference="gzO-Eb-utb"/>
                                 <exclude reference="zew-m9-aVp"/>
-                                <exclude reference="5cg-l6-AUg"/>
-                                <exclude reference="AFg-Sm-ALz"/>
-                                <exclude reference="QaK-r5-7BU"/>
-                                <exclude reference="VAM-vi-voL"/>
-                                <exclude reference="kES-NU-twf"/>
-                                <exclude reference="nB8-fZ-2YM"/>
-                                <exclude reference="slx-xR-pfI"/>
-                                <exclude reference="t81-gR-avt"/>
-                                <exclude reference="tLb-VU-5jE"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -149,41 +94,20 @@
                                 <exclude reference="eLA-BB-Sr6"/>
                                 <exclude reference="ip2-KR-10P"/>
                                 <include reference="zew-m9-aVp"/>
-                                <include reference="5cg-l6-AUg"/>
-                                <exclude reference="T5X-7f-VSI"/>
-                                <exclude reference="VAM-vi-voL"/>
-                                <include reference="nB8-fZ-2YM"/>
-                                <exclude reference="q78-cz-sU7"/>
-                                <exclude reference="qhj-4P-Ykc"/>
-                                <include reference="t81-gR-avt"/>
-                                <include reference="tLb-VU-5jE"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
+                                <include reference="0Ir-2l-uCp"/>
+                                <include reference="6tP-Qd-Ln5"/>
                                 <exclude reference="Fs4-jH-NiW"/>
-                                <include reference="HUE-hR-Tol"/>
-                                <exclude reference="Hnl-TG-aA9"/>
-                                <include reference="HxG-nO-SYE"/>
-                                <include reference="Ml8-xy-lbu"/>
-                                <include reference="SqX-Wj-cJ1"/>
                                 <exclude reference="eLA-BB-Sr6"/>
-                                <exclude reference="gzO-Eb-utb"/>
                                 <exclude reference="ip2-KR-10P"/>
-                                <exclude reference="AFg-Sm-ALz"/>
-                                <include reference="QaK-r5-7BU"/>
-                                <include reference="kES-NU-twf"/>
-                                <exclude reference="q78-cz-sU7"/>
-                                <exclude reference="qhj-4P-Ykc"/>
-                                <include reference="slx-xR-pfI"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="boardView" destination="GKC-L7-eZC" id="cwu-hv-TBn"/>
-                        <outlet property="buttonsView" destination="rgr-eu-D4a" id="bVU-oP-IJi"/>
-                        <outlet property="confirmButton" destination="iXr-rl-rRi" id="bzn-Yp-vr9"/>
-                        <outlet property="undoButton" destination="mNy-8M-1Ao" id="UIX-3p-5bp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0z-AN-wOI" userLabel="First Responder" sceneMemberID="firstResponder"/>

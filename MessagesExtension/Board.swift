@@ -12,7 +12,6 @@ class Board {
     private var pieces: Array2D<Piece>!
     private var _setup: String!
 
-    var undoToSetup = Settings.newGameSetup
     var setup: String {
         get {
             return _setup
@@ -70,7 +69,6 @@ class Board {
     init(message: MSMessage?) {
         guard let message = message, let url = message.url else {
             setup = Settings.newGameSetup
-            undoToSetup = Settings.newGameSetup
             return
         }
 
@@ -78,7 +76,7 @@ class Board {
             for item in components.queryItems! {
                 if item.name == "board" {
                     setup = item.value!
-                    undoToSetup = item.value!
+                    continue
                 }
 
                 if item.name == "set" {
