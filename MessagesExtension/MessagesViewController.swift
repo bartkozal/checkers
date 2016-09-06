@@ -91,7 +91,7 @@ extension MessagesViewController: MenuViewControllerDelegate {
 
 extension MessagesViewController: GameViewControllerDelegate {
     func didFinishMove(setupValue: String, pieceSetValue: String, snapshot gameSnapshot: UIImage) {
-        requestPresentationStyle(.compact)
+        dismiss()
 
         let conversation = activeConversation
         let session = conversation?.selectedMessage?.session ?? MSSession()
@@ -107,7 +107,7 @@ extension MessagesViewController: GameViewControllerDelegate {
         let message = MSMessage(session: session)
         message.layout = layout
         message.url = components.url
-        message.summaryText = "Did a move in Checkers!"
+        message.summaryText = "Did a move."
         
         conversation?.insert(message)
     }
