@@ -111,13 +111,18 @@ class GameScene: SKScene {
     private func capturesFor(piece: Piece) -> Bool {
         captures.removeAll()
 
-        for row in [-1, 1] {
-            for column in [-1, 1] {
-                let rowToFinishMove = piece.row + row * 2
-                let columnToFinishMove = piece.column + column * 2
+        for row in -piece.captureRange...piece.captureRange {
+            for column in -piece.captureRange...piece.captureRange {
+                guard row != 0 else { continue }
+                guard column != 0 else { continue }
+                guard abs(row) == abs(column) else { continue }
+
+                let rowToFinishMove = piece.row + row + 1 * (row / abs(row))
+                let columnToFinishMove = piece.column + column + 1 * (column / abs(column))
                 
-                guard 0 ..< boardSize ~= rowToFinishMove else { continue }
-                guard 0 ..< boardSize ~= columnToFinishMove else { continue }
+                guard 0..<boardSize ~= rowToFinishMove else { continue }
+                guard 0..<boardSize ~= columnToFinishMove else { continue }
+
                 guard !board.isPieceAt(column: columnToFinishMove, row: rowToFinishMove) else { continue }
 
                 let rowToCaputre = piece.row + row
@@ -151,10 +156,34 @@ class GameScene: SKScene {
             return
         }
 
+        let distance = abs(to.column - piece.column)
+        if piece.pieceType == .king {
+            var ownPieces = 0
+            var opponentPieces = 0
+            for n in 1..<distance {
+                if let pieceToCheck = board.pieceAt(column: piece.column + n * ((to.column - piece.column) / distance), row: piece.row + n * ((to.row - piece.row) / distance)) {
+                    if piece.canCapturePieceOf(set: pieceToCheck.pieceSet) {
+                        opponentPieces += 1
+                    } else {
+                        ownPieces += 1
+                    }
+                }
+            }
+
+            guard ownPieces == 0 && opponentPieces == 1 else {
+                abandonMoveOf(piece: piece)
+                return
+            }
+        }
+
         var pieceToCapture: Piece?
-        let toCapture = piece.toCaptureOnMoveTo(column: to.column, row: to.row)
-        for capture in captures where capture.column == toCapture.column && capture.row == toCapture.row {
-            pieceToCapture = capture
+
+        for n in 1..<distance {
+            if let pieceToCheck = board.pieceAt(column: piece.column + n * ((to.column - piece.column) / distance), row: piece.row + n * ((to.row - piece.row) / distance)) {
+                for capture in captures where capture.column == pieceToCheck.column && capture.row == pieceToCheck.row {
+                    pieceToCapture = capture
+                }
+            }
         }
 
         if let capturedPiece = pieceToCapture {
@@ -197,7 +226,7 @@ class GameScene: SKScene {
 
         if piece.pieceType == .king {
             let distance = abs(to.column - piece.column)
-            for n in 1 ..< distance {
+            for n in 1..<distance {
                 if board.isPieceAt(column: piece.column + n * ((to.column - piece.column) / distance), row: piece.row + n * ((to.row - piece.row) / distance)) {
                     abandonMoveOf(piece: piece)
                     return

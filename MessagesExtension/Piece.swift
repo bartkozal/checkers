@@ -66,6 +66,15 @@ class Piece: CustomStringConvertible {
         return "\(pieceSet) \(pieceType), column: \(column), row: \(row)"
     }
 
+    var captureRange: Int {
+        switch pieceType {
+        case .king:
+            return 7
+        case .pawn:
+            return 1
+        }
+    }
+
     init(column: Int, row: Int, pieceType: PieceType, pieceSet: PieceSet) {
         self.column = column
         self.row = row
@@ -103,12 +112,6 @@ class Piece: CustomStringConvertible {
         case .red:
             return pieceSet == .white
         }
-    }
-
-    func toCaptureOnMoveTo(column: Int, row: Int) -> (column: Int, row: Int) {
-        let column = (column - self.column) / abs(column - self.column) * (abs(column - self.column) - 1) + self.column
-        let row = (row - self.row) / abs(row - self.row) * (abs(row - self.row) - 1) + self.row
-        return (column, row)
     }
 
     func canCrownOn(row: Int) -> Bool {
