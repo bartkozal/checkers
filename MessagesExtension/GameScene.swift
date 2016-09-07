@@ -206,7 +206,8 @@ class GameScene: SKScene {
             if !capturesFor(piece: piece) {
                 capturing = false
                 capturingPiece = nil
-                piece.sprite?.run(movement) {
+                piece.sprite?.run(movement) { [unowned self] in
+                    self.tryCrown(piece: piece)
                     self.gameSceneDelegate?.didFinishMove()
                 }
             } else {
