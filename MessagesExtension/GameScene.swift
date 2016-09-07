@@ -158,34 +158,30 @@ class GameScene: SKScene {
         }
 
         let distance = abs(to.column - piece.column)
-        if piece.pieceType == .king {
-            var ownPieces = 0
-            var opponentPieces = 0
-            for n in 1..<distance {
-                if let pieceToCheck = board.pieceAt(column: piece.column + n * ((to.column - piece.column) / distance), row: piece.row + n * ((to.row - piece.row) / distance)) {
-                    if piece.canCapturePieceOf(set: pieceToCheck.pieceSet) {
-                        opponentPieces += 1
-                    } else {
-                        ownPieces += 1
-                    }
-                }
-            }
-
-            guard ownPieces == 0 && opponentPieces == 1 else {
-                abandonMoveOf(piece: piece)
-                return
-            }
-        }
 
         var pieceToCapture: Piece?
+        var ownPieces = 0
+        var opponentPieces = 0
 
-        // FIXME This is duplicated above and in tryMove and can be refactored
         for n in 1..<distance {
             if let pieceToCheck = board.pieceAt(column: piece.column + n * ((to.column - piece.column) / distance), row: piece.row + n * ((to.row - piece.row) / distance)) {
+                if piece.canCapturePieceOf(set: pieceToCheck.pieceSet) {
+                    opponentPieces += 1
+                } else {
+                    ownPieces += 1
+                }
+
                 for capture in captures where capture.column == pieceToCheck.column && capture.row == pieceToCheck.row {
                     pieceToCapture = capture
                 }
             }
+        }
+
+        print(ownPieces,opponentPieces)
+
+        guard ownPieces == 0 && opponentPieces == 1 else {
+            abandonMoveOf(piece: piece)
+            return
         }
 
         if let capturedPiece = pieceToCapture {
