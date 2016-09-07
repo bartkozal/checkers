@@ -16,7 +16,7 @@
                         <viewControllerLayoutGuide type="bottom" id="n38-gi-rB5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zMn-AG-sqS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -34,7 +34,7 @@
                         <viewControllerLayoutGuide type="bottom" id="sD6-CB-hY6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mXW-FR-u3w">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKC-L7-eZC">
@@ -123,7 +123,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4RI-Bg-vho"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dAM-0f-Jvg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQb-py-UCV" customClass="RoundedButton" customModule="MessagesExtension" customModuleProvider="target">
@@ -132,11 +132,14 @@
                                     <action selector="tapNewGameButton" destination="a56-QT-LXJ" eventType="touchUpInside" id="i5K-o0-Ilm"/>
                                 </connections>
                             </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.20000000000000001" contentMode="center" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="n6t-V9-UZe"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="cQb-py-UCV" firstAttribute="centerY" secondItem="dAM-0f-Jvg" secondAttribute="centerY" constant="-15" id="38M-MP-xfS"/>
                             <constraint firstItem="cQb-py-UCV" firstAttribute="centerX" secondItem="dAM-0f-Jvg" secondAttribute="centerX" id="Mto-mU-BH2"/>
+                            <constraint firstItem="n6t-V9-UZe" firstAttribute="top" secondItem="dAM-0f-Jvg" secondAttribute="top" constant="16" id="WHL-kA-BmR"/>
+                            <constraint firstItem="n6t-V9-UZe" firstAttribute="leading" secondItem="dAM-0f-Jvg" secondAttribute="leading" constant="16" id="vsk-XU-Jlf"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -145,4 +148,7 @@
             <point key="canvasLocation" x="774" y="199"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="34" height="25"/>
+    </resources>
 </document>
