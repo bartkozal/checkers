@@ -12,6 +12,7 @@ protocol GameSceneDelegate: class {
     func didFinishMove()
 }
 
+// FIXME Piece should have access to the board, then move most of the logic from scene to pieces
 class GameScene: SKScene {
     var tileSize: CGFloat!
     var pieceSize: CGFloat!
@@ -178,6 +179,7 @@ class GameScene: SKScene {
 
         var pieceToCapture: Piece?
 
+        // FIXME This is duplicated above and in tryMove and can be refactored
         for n in 1..<distance {
             if let pieceToCheck = board.pieceAt(column: piece.column + n * ((to.column - piece.column) / distance), row: piece.row + n * ((to.row - piece.row) / distance)) {
                 for capture in captures where capture.column == pieceToCheck.column && capture.row == pieceToCheck.row {

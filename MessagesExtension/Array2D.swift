@@ -6,6 +6,7 @@
 //  Copyright © 2016 bkzl. All rights reserved.
 //
 
+// FIXME Rename to Matrix, add Vector and Point
 struct Array2D<T> {
     let columns: Int
     let rows: Int
