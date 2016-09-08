@@ -17,6 +17,10 @@ class MessagesViewController: MSMessagesAppViewController {
         presentVC(for: conversation, with: presentationStyle)
     }
 
+    override func didBecomeActive(with conversation: MSConversation) {
+        view.isUserInteractionEnabled = !isSenderSameAsRecipient()
+    }
+
     override func willTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
         guard let conversation = activeConversation else {
             fatalError("Expected the active conversation")
@@ -75,7 +79,7 @@ class MessagesViewController: MSMessagesAppViewController {
         return gameVC
     }
 
-    func isSenderSameAsRecipient() -> Bool {
+    private func isSenderSameAsRecipient() -> Bool {
         guard let conversation = activeConversation else { return false }
         guard let message = conversation.selectedMessage else { return false }
 
@@ -107,12 +111,8 @@ extension MessagesViewController: GameViewControllerDelegate {
         let message = MSMessage(session: session)
         message.layout = layout
         message.url = components.url
-        message.summaryText = "Did a move."
+        message.summaryText = "Did a move in Checkers."
         
         conversation?.insert(message)
-    }
-
-    func didLoadSpriteKit(view: SKView) {
-        view.isUserInteractionEnabled = !isSenderSameAsRecipient()
     }
 }

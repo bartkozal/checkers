@@ -136,8 +136,6 @@ class GameScene: SKScene {
             }
         }
 
-        print(captures)
-
         return !captures.isEmpty
     }
 
@@ -176,8 +174,6 @@ class GameScene: SKScene {
                 }
             }
         }
-
-        print(ownPieces,opponentPieces)
 
         guard ownPieces == 0 && opponentPieces == 1 else {
             abandonMoveOf(piece: piece)

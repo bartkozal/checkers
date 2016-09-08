@@ -11,7 +11,6 @@ import SpriteKit
 
 protocol GameViewControllerDelegate: class {
     func didFinishMove(setupValue: String, pieceSetValue: String, snapshot gameSnapshot: UIImage)
-    func didLoadSpriteKit(view: SKView)
 }
 
 class GameViewController: UIViewController {
@@ -35,7 +34,6 @@ class GameViewController: UIViewController {
 
         skView = SKView(frame: view.frame)
         skView.isMultipleTouchEnabled = false
-        delegate?.didLoadSpriteKit(view: skView)
         view.addSubview(skView)
 
         scene = GameScene(size: skView.bounds.size)
