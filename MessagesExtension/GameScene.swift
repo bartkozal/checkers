@@ -205,7 +205,7 @@ class GameScene: SKScene {
                 capturingPiece = nil
                 piece.sprite?.run(movement) { [unowned self] in
                     self.tryCrown(piece: piece)
-                    self.gameSceneDelegate?.didFinishMove()
+                    self.finishMove(at: self.pointFor(column: to.column, row: to.row))
                 }
             } else {
                 piece.sprite?.run(movement)
@@ -240,12 +240,18 @@ class GameScene: SKScene {
         movement.timingMode = .linear
         piece.sprite?.run(movement) { [unowned self] in
             self.tryCrown(piece: piece)
-            self.gameSceneDelegate?.didFinishMove()
+            self.finishMove(at: self.pointFor(column: to.column, row: to.row))
         }
     }
 
     private func abandonMoveOf(piece: Piece) {
         piece.sprite?.position = pointFor(column: piece.column, row: piece.row)
+    }
+
+    private func finishMove(at location: CGPoint) {
+        let tile = boardLayer.atPoint(location) as! SKSpriteNode
+        tile.color = Settings.lastMoveTileColor
+        self.gameSceneDelegate?.didFinishMove()
     }
 
     private func tryCrown(piece: Piece) {
