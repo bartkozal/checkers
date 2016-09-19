@@ -58,7 +58,7 @@ class GameScene: SKScene {
         let (success, column, row) = convert(point: location)
 
         if success {
-            if let piece = board.pieceAt(column: column, row: row), piece.pieceSet == board.pieceSet {
+            if let piece = board.pieceAt(column: column, row: row), piece.pieceSet == board.activePieceSet {
                 if !capturingPieces.isEmpty {
                     guard capturingPieces.contains(piece) else { return }
                 }
@@ -276,7 +276,7 @@ class GameScene: SKScene {
 
                     piece.sprite = sprite
 
-                    if piece.pieceSet == board.pieceSet && capturesFor(piece: piece) {
+                    if piece.pieceSet == board.activePieceSet && capturesFor(piece: piece) {
                         capturingPieces.append(piece)
                     }
                 }

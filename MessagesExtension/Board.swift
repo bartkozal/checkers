@@ -34,9 +34,9 @@ class Board {
         return setup.joined(separator: ",")
     }
 
-    var pieceSet = PieceSet.white
-    var pieceSetValue: String {
-        switch pieceSet {
+    var activePieceSet = PieceSet.white
+    var activePieceSetValue: String {
+        switch activePieceSet {
         case .white:
             return PieceSet.red.symbol
         case .red:
@@ -80,7 +80,7 @@ class Board {
                 }
 
                 if item.name == "set" {
-                    pieceSet = PieceSet.symbol(item.value!)!
+                    activePieceSet = PieceSet.symbol(item.value!)!
                 }
             }
         }

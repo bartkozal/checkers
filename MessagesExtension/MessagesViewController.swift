@@ -94,7 +94,7 @@ extension MessagesViewController: MenuViewControllerDelegate {
 }
 
 extension MessagesViewController: GameViewControllerDelegate {
-    func didFinishMove(setupValue: String, pieceSetValue: String, snapshot gameSnapshot: UIImage) {
+    func didFinishMove(setupValue: String, activePieceSetValue: String, snapshot gameSnapshot: UIImage) {
         dismiss()
 
         let conversation = activeConversation
@@ -105,7 +105,7 @@ extension MessagesViewController: GameViewControllerDelegate {
 
         var components = URLComponents()
         let boardQueryItem = URLQueryItem(name: "board", value: setupValue)
-        let setQueryItem = URLQueryItem(name: "set", value: pieceSetValue)
+        let setQueryItem = URLQueryItem(name: "set", value: activePieceSetValue)
         components.queryItems = [boardQueryItem, setQueryItem]
 
         let message = MSMessage(session: session)
