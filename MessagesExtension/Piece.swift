@@ -69,7 +69,7 @@ class Piece: CustomStringConvertible, Equatable {
     var captureRange: Int {
         switch pieceType {
         case .king:
-            return 7
+            return Settings.boardSize - 1
         case .pawn:
             return 1
         }

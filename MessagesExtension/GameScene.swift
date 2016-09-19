@@ -37,7 +37,7 @@ class GameScene: SKScene {
 
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
-        tileSize = size.width / 8
+        tileSize = size.width / CGFloat(Settings.boardSize)
         pieceSize = tileSize * 0.9
 
         addChild(gameLayer)
