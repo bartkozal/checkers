@@ -202,22 +202,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQb-py-UCV" customClass="RoundedButton" customModule="MessagesExtension" customModuleProvider="target">
-                                <state key="normal" title="Start new game"/>
-                                <connections>
-                                    <action selector="tapNewGameButton" destination="a56-QT-LXJ" eventType="touchUpInside" id="i5K-o0-Ilm"/>
-                                </connections>
-                            </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="n6t-V9-UZe"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hJO-fg-IzS">
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="JrS-hl-t5x">
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Board size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Fe-9a-3tW">
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="KMV-ZR-EnW">
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKg-an-ybu">
+                                                        <state key="normal" title="8x8">
+                                                            <color key="titleColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <state key="disabled">
+                                                            <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="tapBoardTypeButtonWithButton:" destination="a56-QT-LXJ" eventType="touchUpInside" id="G8Y-Wd-gsb"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLL-lr-PMC">
+                                                        <state key="normal" title="10x10">
+                                                            <color key="titleColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <state key="disabled">
+                                                            <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="tapBoardTypeButtonWithButton:" destination="a56-QT-LXJ" eventType="touchUpInside" id="LEL-oa-FHo"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQb-py-UCV" customClass="RoundedButton" customModule="MessagesExtension" customModuleProvider="target">
+                                        <state key="normal" title="Start new game"/>
+                                        <connections>
+                                            <action selector="tapNewGameButton" destination="a56-QT-LXJ" eventType="touchUpInside" id="i5K-o0-Ilm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.20000000000000001" contentMode="center" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="n6t-V9-UZe"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cQb-py-UCV" firstAttribute="centerY" secondItem="dAM-0f-Jvg" secondAttribute="centerY" constant="-15" id="38M-MP-xfS"/>
-                            <constraint firstItem="cQb-py-UCV" firstAttribute="centerX" secondItem="dAM-0f-Jvg" secondAttribute="centerX" id="Mto-mU-BH2"/>
+                            <constraint firstItem="hJO-fg-IzS" firstAttribute="centerY" secondItem="dAM-0f-Jvg" secondAttribute="centerY" constant="-25" id="2yt-rp-acG"/>
                             <constraint firstItem="n6t-V9-UZe" firstAttribute="top" secondItem="dAM-0f-Jvg" secondAttribute="top" constant="16" id="WHL-kA-BmR"/>
+                            <constraint firstItem="hJO-fg-IzS" firstAttribute="centerX" secondItem="dAM-0f-Jvg" secondAttribute="centerX" id="srv-Cn-8Zy"/>
                             <constraint firstItem="n6t-V9-UZe" firstAttribute="leading" secondItem="dAM-0f-Jvg" secondAttribute="leading" constant="16" id="vsk-XU-Jlf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="largeBoardButton" destination="nLL-lr-PMC" id="cpR-Bd-hHz"/>
+                        <outlet property="smallBoardButton" destination="fKg-an-ybu" id="07z-H7-SDN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qPZ-HF-7fn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
