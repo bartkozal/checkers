@@ -28,6 +28,7 @@ class GameScene: SKScene {
     var captures = [Piece]()
     var capturing = false
     var capturingPiece: Piece?
+    var capturingPieces = [Piece]()
 
     weak var gameSceneDelegate: GameSceneDelegate?
 
@@ -58,6 +59,10 @@ class GameScene: SKScene {
 
         if success {
             if let piece = board.pieceAt(column: column, row: row), piece.pieceSet == board.pieceSet {
+                if !capturingPieces.isEmpty {
+                    guard capturingPieces.contains(piece) else { return }
+                }
+
                 if capturingPiece != nil {
                     guard piece == capturingPiece! else { return }
                 }
@@ -270,6 +275,10 @@ class GameScene: SKScene {
                     piecesLayer.addChild(sprite)
 
                     piece.sprite = sprite
+
+                    if piece.pieceSet == board.pieceSet && capturesFor(piece: piece) {
+                        capturingPieces.append(piece)
+                    }
                 }
             }
         }

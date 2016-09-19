@@ -42,7 +42,7 @@ enum PieceSet: String {
     }
 }
 
-class Piece: CustomStringConvertible {
+class Piece: CustomStringConvertible, Equatable {
     var column: Int
     var row: Int
     var pieceSet: PieceSet
