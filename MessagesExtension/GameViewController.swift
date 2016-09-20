@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import StoreKit
 
 protocol GameViewControllerDelegate: class {
     func didFinishMove(setupValue: String, activePieceSetValue: String, snapshot gameSnapshot: UIImage)
@@ -21,8 +22,39 @@ class GameViewController: UIViewController {
     var scene: GameScene!
     var board: Board!
     var skView: SKView!
+    var transactionInProgress = false {
+        didSet {
+            if transactionInProgress {
+                donationButton.isEnabled = false
+                transactionIndicator.startAnimating()
+            } else {
+                donationButton.isEnabled = true
+                transactionIndicator.stopAnimating()
+            }
+        }
+    }
 
     @IBOutlet weak var boardView: UIView!
+    @IBOutlet weak var donationButton: UIButton! {
+        didSet {
+            donationButton.isHidden = !SKPaymentQueue.canMakePayments()
+        }
+    }
+    @IBOutlet weak var transactionIndicator: UIActivityIndicatorView! {
+        didSet {
+            transactionIndicator.stopAnimating()
+        }
+    }
+
+    @IBAction func tapDonationButton() {
+        if SKPaymentQueue.canMakePayments() {
+            transactionInProgress = true
+
+            let productRequest = SKProductsRequest(productIdentifiers: Set(["bkzl.checkers.iap.coffee"]))
+            productRequest.delegate = self
+            productRequest.start()
+        }
+    }
 
     func getGameSnapshot() -> UIImage {
         let cgImage = skView!.texture(from: scene.gameLayer)!.cgImage()
@@ -31,6 +63,8 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        SKPaymentQueue.default().add(self)
 
         skView = SKView(frame: view.frame)
         skView.isMultipleTouchEnabled = false
@@ -53,5 +87,28 @@ class GameViewController: UIViewController {
 extension GameViewController: GameSceneDelegate {
     func didFinishMove() {
         delegate?.didFinishMove(setupValue: board.setupValue, activePieceSetValue: board.activePieceSetValue, snapshot: getGameSnapshot())
+    }
+}
+
+extension GameViewController: SKProductsRequestDelegate {
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        for product in response.products {
+            let payment = SKPayment(product: product)
+            SKPaymentQueue.default().add(payment)
+        }
+    }
+}
+
+extension GameViewController: SKPaymentTransactionObserver {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transcation in transactions {
+            switch transcation.transactionState {
+            case .purchased, .failed:
+                SKPaymentQueue.default().finishTransaction(transcation)
+                transactionInProgress = false
+            default:
+                break
+            }
+        }
     }
 }

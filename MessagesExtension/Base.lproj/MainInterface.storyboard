@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A320" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -16,7 +16,7 @@
                         <viewControllerLayoutGuide type="bottom" id="n38-gi-rB5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zMn-AG-sqS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -34,7 +34,7 @@
                         <viewControllerLayoutGuide type="bottom" id="sD6-CB-hY6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mXW-FR-u3w">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKC-L7-eZC">
@@ -42,10 +42,10 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="GKC-L7-eZC" secondAttribute="height" multiplier="1:1" id="1zU-Ka-caX"/>
                                     <constraint firstAttribute="height" constant="580" id="EIA-nm-W1p">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="580"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="550"/>
                                     </constraint>
                                     <constraint firstAttribute="width" constant="580" id="JT4-lx-LOK">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="580"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="550"/>
                                     </constraint>
                                 </constraints>
                                 <variation key="default">
@@ -61,11 +61,31 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="PkQ-Wl-ObM">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="xmi-q7-wBw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                <state key="normal" title="You can support the further development of this app and buy me a cup of coffee." image="icn-coffee">
+                                    <color key="titleColor" red="0.66666666666666663" green="0.67450980392156867" blue="0.67450980392156867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapDonationButton" destination="NsR-dU-caD" eventType="touchUpInside" id="vWn-bB-vg5"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OxZ-iR-9OL">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="0Ir-2l-uCp"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="6tP-Qd-Ln5"/>
+                            <constraint firstItem="PkQ-Wl-ObM" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="A81-rq-T5a"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="Fs4-jH-NiW"/>
                             <constraint firstAttribute="bottom" secondItem="GKC-L7-eZC" secondAttribute="bottom" id="PwM-Eu-cZ7">
                                 <variation key="heightClass=compact" constant="46"/>
@@ -73,8 +93,11 @@
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="top" secondItem="mXW-FR-u3w" secondAttribute="top" id="Vs8-yk-lnA">
                                 <variation key="heightClass=compact" constant="66"/>
                             </constraint>
+                            <constraint firstAttribute="bottom" secondItem="PkQ-Wl-ObM" secondAttribute="bottom" constant="64" id="bA7-kB-tzO"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="leading" secondItem="mXW-FR-u3w" secondAttribute="leading" id="eLA-BB-Sr6"/>
                             <constraint firstAttribute="trailing" secondItem="GKC-L7-eZC" secondAttribute="trailing" id="ip2-KR-10P"/>
+                            <constraint firstItem="OxZ-iR-9OL" firstAttribute="leading" secondItem="PkQ-Wl-ObM" secondAttribute="leading" constant="5" id="kcQ-YI-CoJ"/>
+                            <constraint firstItem="OxZ-iR-9OL" firstAttribute="centerY" secondItem="PkQ-Wl-ObM" secondAttribute="centerY" id="l5p-pD-d9e"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="zew-m9-aVp"/>
                         </constraints>
                         <variation key="default">
@@ -96,6 +119,18 @@
                                 <include reference="zew-m9-aVp"/>
                             </mask>
                         </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="subviews">
+                                <exclude reference="PkQ-Wl-ObM"/>
+                                <exclude reference="OxZ-iR-9OL"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="subviews">
+                                <exclude reference="PkQ-Wl-ObM"/>
+                                <exclude reference="OxZ-iR-9OL"/>
+                            </mask>
+                        </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
                                 <include reference="0Ir-2l-uCp"/>
@@ -108,11 +143,13 @@
                     </view>
                     <connections>
                         <outlet property="boardView" destination="GKC-L7-eZC" id="cwu-hv-TBn"/>
+                        <outlet property="donationButton" destination="PkQ-Wl-ObM" id="3nl-tg-3Hy"/>
+                        <outlet property="transactionIndicator" destination="OxZ-iR-9OL" id="YmO-QQ-FWX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0z-AN-wOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1436" y="199"/>
+            <point key="canvasLocation" x="1434.4000000000001" y="197.45127436281859"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="UpO-wO-k3Z">
@@ -123,7 +160,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4RI-Bg-vho"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dAM-0f-Jvg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQb-py-UCV" customClass="RoundedButton" customModule="MessagesExtension" customModuleProvider="target">
@@ -132,7 +169,7 @@
                                     <action selector="tapNewGameButton" destination="a56-QT-LXJ" eventType="touchUpInside" id="i5K-o0-Ilm"/>
                                 </connections>
                             </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.20000000000000001" contentMode="center" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="n6t-V9-UZe"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="n6t-V9-UZe"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -149,6 +186,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icn-coffee" width="30" height="30"/>
         <image name="logo" width="34" height="25"/>
     </resources>
 </document>
