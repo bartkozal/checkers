@@ -48,6 +48,8 @@ class GameViewController: UIViewController {
 
     @IBAction func tapDonationButton() {
         if SKPaymentQueue.canMakePayments() {
+            SKPaymentQueue.default().add(self)
+
             transactionInProgress = true
 
             let productRequest = SKProductsRequest(productIdentifiers: Set(["bkzl.checkers.iap.coffee"]))
@@ -63,8 +65,6 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        SKPaymentQueue.default().add(self)
 
         skView = SKView(frame: view.frame)
         skView.isMultipleTouchEnabled = false
@@ -109,7 +109,7 @@ extension GameViewController: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transcation in transactions {
             switch transcation.transactionState {
-            case .purchased, .failed:
+            case .purchased, .failed, .restored:
                 SKPaymentQueue.default().finishTransaction(transcation)
                 transactionInProgress = false
             default:
