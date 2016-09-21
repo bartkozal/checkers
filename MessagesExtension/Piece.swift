@@ -78,7 +78,7 @@ class Piece: CustomStringConvertible, Equatable {
     var captureRange: Int {
         switch pieceType {
         case .king:
-            return Settings.boardSize - 1
+            return Settings.boardSize.dimension - 1
         case .pawn:
             return 1
         }
@@ -126,7 +126,7 @@ class Piece: CustomStringConvertible, Equatable {
     func canCrownOn(row: Int) -> Bool {
         switch (pieceType, pieceSet) {
         case (.pawn, .white):
-            return row == Settings.boardSize - 1
+            return row == Settings.boardSize.dimension - 1
         case (.pawn, .red):
             return row == 0
         default:

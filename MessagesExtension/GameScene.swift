@@ -17,7 +17,7 @@ class GameScene: SKScene {
     var tileSize: CGFloat!
     var pieceSize: CGFloat!
 
-    let boardSize = Settings.boardSize
+    let dimension = Settings.boardSize.dimension
 
     let gameLayer = SKNode()
     let boardLayer = SKNode()
@@ -43,13 +43,13 @@ class GameScene: SKScene {
 
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
-        tileSize = size.width / CGFloat(Settings.boardSize)
+        tileSize = size.width / CGFloat(dimension)
         pieceSize = tileSize * 0.9
 
         addChild(gameLayer)
 
-        let layerPosition = CGPoint(x: -tileSize * CGFloat(boardSize) / 2,
-                                    y: -tileSize * CGFloat(boardSize) / 2)
+        let layerPosition = CGPoint(x: -tileSize * CGFloat(dimension) / 2,
+                                    y: -tileSize * CGFloat(dimension) / 2)
 
         boardLayer.position = layerPosition
         gameLayer.addChild(boardLayer)
@@ -132,8 +132,8 @@ class GameScene: SKScene {
                 let rowToFinishMove = piece.row + row + 1 * (row / abs(row))
                 let columnToFinishMove = piece.column + column + 1 * (column / abs(column))
                 
-                guard 0..<boardSize ~= rowToFinishMove else { continue }
-                guard 0..<boardSize ~= columnToFinishMove else { continue }
+                guard 0..<dimension ~= rowToFinishMove else { continue }
+                guard 0..<dimension ~= columnToFinishMove else { continue }
 
                 guard !board.isPieceAt(column: columnToFinishMove, row: rowToFinishMove) else { continue }
 
@@ -274,8 +274,8 @@ class GameScene: SKScene {
         boardLayer.removeAllChildren()
         piecesLayer.removeAllChildren()
 
-        for row in 0..<boardSize {
-            for column in 0..<boardSize {
+        for row in 0..<dimension {
+            for column in 0..<dimension {
                 let size = CGSize(width: tileSize, height: tileSize)
                 let color = tileColorFor(column: column, row: row)
                 let position = pointFor(column: column, row: row)
@@ -320,8 +320,8 @@ class GameScene: SKScene {
     }
 
     private func convert(point: CGPoint) -> (success: Bool, column: Int, row: Int) {
-        if point.x >= 0 && point.x < CGFloat(boardSize) * tileSize &&
-            point.y >= 0 && point.y < CGFloat(boardSize) * tileSize {
+        if point.x >= 0 && point.x < CGFloat(dimension) * tileSize &&
+            point.y >= 0 && point.y < CGFloat(dimension) * tileSize {
             return (true, Int(point.x / tileSize), Int(point.y / tileSize))
         } else {
             return (false, 0, 0)

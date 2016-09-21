@@ -221,7 +221,7 @@
                                                             <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="tapBoardTypeButtonWithButton:" destination="a56-QT-LXJ" eventType="touchUpInside" id="G8Y-Wd-gsb"/>
+                                                            <action selector="tapBoardSizeButtonWithButton:" destination="a56-QT-LXJ" eventType="touchUpInside" id="1lj-o2-nsU"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLL-lr-PMC">
@@ -232,7 +232,7 @@
                                                             <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="tapBoardTypeButtonWithButton:" destination="a56-QT-LXJ" eventType="touchUpInside" id="LEL-oa-FHo"/>
+                                                            <action selector="tapBoardSizeButtonWithButton:" destination="a56-QT-LXJ" eventType="touchUpInside" id="nmM-Da-e9Z"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

@@ -12,6 +12,11 @@ import SpriteKit
 
 class MessagesViewController: MSMessagesAppViewController {
     var controller = UIViewController()
+    var boardSize = BoardSize.small {
+        didSet {
+            Settings.boardSize = boardSize
+        }
+    }
 
     override func willBecomeActive(with conversation: MSConversation) {
         super.willBecomeActive(with: conversation)
@@ -88,13 +93,17 @@ class MessagesViewController: MSMessagesAppViewController {
 }
 
 extension MessagesViewController: MenuViewControllerDelegate {
+    func didChangeBoardSize(to size: BoardSize) {
+        boardSize = size
+    }
+
     func didStartGame() {
         requestPresentationStyle(.expanded)
     }
 }
 
 extension MessagesViewController: GameViewControllerDelegate {
-    func didFinishMove(setupValue: String, activePieceSetValue: String, snapshot gameSnapshot: UIImage) {
+    func didFinishMove(setupValue: String, boardSizeValue: String, activePieceSetValue: String, snapshot gameSnapshot: UIImage) {
         dismiss()
 
         let conversation = activeConversation
@@ -104,9 +113,10 @@ extension MessagesViewController: GameViewControllerDelegate {
         layout.image = gameSnapshot
 
         var components = URLComponents()
-        let boardQueryItem = URLQueryItem(name: "board", value: setupValue)
-        let setQueryItem = URLQueryItem(name: "set", value: activePieceSetValue)
-        components.queryItems = [boardQueryItem, setQueryItem]
+        let setupQueryItem = URLQueryItem(name: "board", value: setupValue)
+        let boardSizeQueryItem = URLQueryItem(name: "size", value: boardSizeValue)
+        let activePieceSetQueryItem = URLQueryItem(name: "set", value: activePieceSetValue)
+        components.queryItems = [setupQueryItem, boardSizeQueryItem, activePieceSetQueryItem]
 
         let message = MSMessage(session: session)
         message.layout = layout

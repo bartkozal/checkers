@@ -24,14 +24,32 @@ class Board {
     }
     var setupValue: String {
         var setup: [String] = []
-        for row in 0..<Settings.boardSize {
-            for column in 0..<Settings.boardSize {
+        for row in 0..<Settings.boardSize.dimension {
+            for column in 0..<Settings.boardSize.dimension {
                 if let piece = pieces[column, row] {
                     setup.append("\(piece.symbol)\(piece.column)\(piece.row)")
                 }
             }
         }
         return setup.joined(separator: ",")
+    }
+
+    var size: BoardSize {
+        get {
+            return Settings.boardSize
+        }
+
+        set {
+            Settings.boardSize = newValue
+        }
+    }
+    var sizeValue: String {
+        switch size {
+        case .small:
+            return BoardSize.small.symbol
+        case .large:
+            return BoardSize.large.symbol
+        }
     }
 
     var activePieceSet = PieceSet.white
@@ -45,8 +63,8 @@ class Board {
     }
 
     func pieceAt(column: Int, row: Int) -> Piece? {
-        guard column >= 0 && column < Settings.boardSize else { return nil }
-        guard row >= 0 && row < Settings.boardSize else { return nil }
+        guard column >= 0 && column < Settings.boardSize.dimension else { return nil }
+        guard row >= 0 && row < Settings.boardSize.dimension else { return nil }
 
         return pieces[column, row]
     }
@@ -68,7 +86,7 @@ class Board {
 
     init(message: MSMessage?) {
         guard let message = message, let url = message.url else {
-            setup = Settings.newGameSetup
+            setup = Settings.boardSize.newGameSetup
             return
         }
 
@@ -76,6 +94,11 @@ class Board {
             for item in components.queryItems! {
                 if item.name == "board" {
                     setup = item.value!
+                    continue
+                }
+
+                if item.name == "size" {
+                    size = BoardSize.symbol(item.value!)!
                     continue
                 }
 
@@ -87,7 +110,7 @@ class Board {
     }
 
     private func setUpBoard(with setup: String) {
-        pieces = Array2D<Piece>(columns: Settings.boardSize, rows: Settings.boardSize)
+        pieces = Array2D<Piece>(columns: Settings.boardSize.dimension, rows: Settings.boardSize.dimension)
 
         for piece in setup.components(separatedBy: ",") {
             let characters = Array(piece.characters)

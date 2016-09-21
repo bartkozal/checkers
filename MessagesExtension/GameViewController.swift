@@ -11,7 +11,7 @@ import SpriteKit
 import StoreKit
 
 protocol GameViewControllerDelegate: class {
-    func didFinishMove(setupValue: String, activePieceSetValue: String, snapshot gameSnapshot: UIImage)
+    func didFinishMove(setupValue: String, boardSizeValue: String, activePieceSetValue: String, snapshot gameSnapshot: UIImage)
 }
 
 class GameViewController: UIViewController {
@@ -106,7 +106,7 @@ class GameViewController: UIViewController {
 
 extension GameViewController: GameSceneDelegate {
     func didFinishMove() {
-        delegate?.didFinishMove(setupValue: board.setupValue, activePieceSetValue: board.activePieceSetValue, snapshot: getGameSnapshot())
+        delegate?.didFinishMove(setupValue: board.setupValue, boardSizeValue: board.sizeValue, activePieceSetValue: board.activePieceSetValue, snapshot: getGameSnapshot())
     }
 }
 

@@ -10,20 +10,21 @@ import UIKit
 
 protocol MenuViewControllerDelegate: class {
     func didStartGame()
+    func didChangeBoardSize(to size: BoardSize)
 }
 
 class MenuViewController: UIViewController {
     static let storyboardIdentifier = "MenuViewController"
 
-    var _boardType: BoardType = Settings.boardType
-    var boardType: BoardType {
+    var _boardSize: BoardSize = Settings.boardSize
+    var boardSize: BoardSize {
         get {
-            return _boardType
+            return _boardSize
         }
 
         set {
-            _boardType = newValue
-            Settings.boardType = newValue
+            _boardSize = newValue
+            delegate?.didChangeBoardSize(to: newValue)
             smallBoardButton.isEnabled = newValue != .small
             largeBoardButton.isEnabled = newValue != .large
         }
@@ -33,21 +34,21 @@ class MenuViewController: UIViewController {
 
     @IBOutlet weak private var smallBoardButton: UIButton! {
         didSet {
-            smallBoardButton.isEnabled = boardType != .small
+            smallBoardButton.isEnabled = boardSize != .small
         }
     }
 
     @IBOutlet weak private var largeBoardButton: UIButton! {
         didSet {
-            largeBoardButton.isEnabled = boardType != .large
+            largeBoardButton.isEnabled = boardSize != .large
         }
     }
 
-    @IBAction private func tapBoardTypeButton(button: UIButton) {
+    @IBAction private func tapBoardSizeButton(button: UIButton) {
         if button.titleLabel?.text == "8x8" {
-            boardType = .small
+            boardSize = .small
         } else {
-            boardType = .large
+            boardSize = .large
         }
     }
 

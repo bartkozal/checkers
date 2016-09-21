@@ -14,7 +14,7 @@
 		A10EE8CD1D70D4F80044A5E1 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EE8CC1D70D4F80044A5E1 /* MessagesViewController.swift */; };
 		A10EE8D01D70D4F80044A5E1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10EE8CE1D70D4F80044A5E1 /* MainInterface.storyboard */; };
 		A10EE8D21D70D4F80044A5E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10EE8D11D70D4F80044A5E1 /* Assets.xcassets */; };
-		A135DC971D90227200A70E79 /* BoardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A135DC961D90227200A70E79 /* BoardType.swift */; };
+		A135DC971D90227200A70E79 /* BoardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A135DC961D90227200A70E79 /* BoardSize.swift */; };
 		A1718A581D70DB4400CC952A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1718A571D70DB4400CC952A /* GameViewController.swift */; };
 		A1718A5A1D70DB7B00CC952A /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1718A591D70DB7B00CC952A /* MenuViewController.swift */; };
 		A1B2337E1D70ED55005284B1 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2337D1D70ED55005284B1 /* Array2D.swift */; };
@@ -60,7 +60,7 @@
 		A10EE8CF1D70D4F80044A5E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		A10EE8D11D70D4F80044A5E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A10EE8D31D70D4F80044A5E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A135DC961D90227200A70E79 /* BoardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardType.swift; sourceTree = "<group>"; };
+		A135DC961D90227200A70E79 /* BoardSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardSize.swift; sourceTree = "<group>"; };
 		A1718A571D70DB4400CC952A /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		A1718A591D70DB7B00CC952A /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A1B2337D1D70ED55005284B1 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 			children = (
 				A1B2337D1D70ED55005284B1 /* Array2D.swift */,
 				A1B233811D70EDA3005284B1 /* Settings.swift */,
-				A135DC961D90227200A70E79 /* BoardType.swift */,
+				A135DC961D90227200A70E79 /* BoardSize.swift */,
 				A1B2337F1D70ED82005284B1 /* GameScene.swift */,
 				A1B233831D70EE3A005284B1 /* Board.swift */,
 				A1B233851D70EE58005284B1 /* Piece.swift */,
@@ -266,7 +266,7 @@
 				A1B233841D70EE3A005284B1 /* Board.swift in Sources */,
 				A1718A5A1D70DB7B00CC952A /* MenuViewController.swift in Sources */,
 				A10EE8CD1D70D4F80044A5E1 /* MessagesViewController.swift in Sources */,
-				A135DC971D90227200A70E79 /* BoardType.swift in Sources */,
+				A135DC971D90227200A70E79 /* BoardSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
