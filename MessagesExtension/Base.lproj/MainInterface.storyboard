@@ -101,7 +101,7 @@
                                                     <font key="NSFont" metaFont="system"/>
                                                 </attributes>
                                             </fragment>
-                                            <fragment content="capture">
+                                            <fragment content="jump and capture">
                                                 <attributes>
                                                     <color key="NSBackgroundColor" red="0.96078431372549022" green="0.65098039215686276" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
