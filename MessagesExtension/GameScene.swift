@@ -29,6 +29,12 @@ class GameScene: SKScene {
     var capturing = false
     var capturingPiece: Piece?
     var capturingPieces = [Piece]()
+    var capturingTiles = [SKSpriteNode]()
+
+    var mandatoryCaptureLabel: UILabel!
+    var haveMandatoryCaptures: Bool {
+        return !capturingPieces.isEmpty
+    }
 
     weak var gameSceneDelegate: GameSceneDelegate?
 
@@ -59,7 +65,7 @@ class GameScene: SKScene {
 
         if success {
             if let piece = board.pieceAt(column: column, row: row), piece.pieceSet == board.activePieceSet {
-                if !capturingPieces.isEmpty {
+                if haveMandatoryCaptures {
                     guard capturingPieces.contains(piece) else { return }
                 }
 
@@ -200,6 +206,10 @@ class GameScene: SKScene {
             movement.timingMode = .linear
             capturedPiece.sprite?.removeFromParent()
 
+            for tile in capturingTiles {
+                tile.color = Settings.darkTilesColor
+            }
+
             if !capturesFor(piece: piece) {
                 capturing = false
                 capturingPiece = nil
@@ -283,8 +293,14 @@ class GameScene: SKScene {
                     piece.sprite = sprite
 
                     if piece.pieceSet == board.activePieceSet && capturesFor(piece: piece) {
+                        let location = pointFor(column: piece.column, row: piece.row)
+                        let tile = boardLayer.atPoint(location) as! SKSpriteNode
+                        tile.color = Settings.captureTileColor
+                        capturingTiles.append(tile)
                         capturingPieces.append(piece)
                     }
+
+                    mandatoryCaptureLabel.isHidden = !haveMandatoryCaptures
                 }
             }
         }

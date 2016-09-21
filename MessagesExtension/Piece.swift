@@ -32,6 +32,15 @@ enum PieceSet: String {
         return String(rawValue.characters.first!)
     }
 
+    var symbolImage: UIImage? {
+        switch self {
+        case .white:
+            return UIImage(named: "white-pawn")
+        case .red:
+            return UIImage(named: "red-pawn")
+        }
+    }
+
     static func symbol(_ symbol: String) -> PieceSet? {
         let symbols: [String: PieceSet] = [
             "w": .white,

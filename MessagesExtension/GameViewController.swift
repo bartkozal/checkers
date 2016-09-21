@@ -40,9 +40,22 @@ class GameViewController: UIViewController {
             donationButton.isHidden = !SKPaymentQueue.canMakePayments()
         }
     }
+
     @IBOutlet weak var transactionIndicator: UIActivityIndicatorView! {
         didSet {
             transactionIndicator.stopAnimating()
+        }
+    }
+
+    @IBOutlet weak var activePieceSetImage: UIImageView! {
+        didSet {
+            activePieceSetImage.image = board.activePieceSet.symbolImage
+        }
+    }
+
+    @IBOutlet weak var mandatoryCaptureLabel: UILabel! {
+        didSet {
+            mandatoryCaptureLabel.isHidden = true
         }
     }
 
@@ -74,6 +87,7 @@ class GameViewController: UIViewController {
         scene.gameSceneDelegate = self
         scene.scaleMode = .aspectFill
         scene.board = board
+        scene.mandatoryCaptureLabel = mandatoryCaptureLabel
         scene.renderBoard()
 
         skView.presentScene(scene)
