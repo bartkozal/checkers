@@ -62,6 +62,23 @@ class Board {
         }
     }
 
+    var backwardJumps: Bool {
+        get {
+            return Settings.backwardJumps
+        }
+
+        set {
+            Settings.backwardJumps = newValue
+        }
+    }
+    var backwardJumpsValue: String {
+        if backwardJumps {
+            return "1"
+        } else {
+            return "0"
+        }
+    }
+
     func pieceAt(column: Int, row: Int) -> Piece? {
         guard column >= 0 && column < Settings.boardSize.dimension else { return nil }
         guard row >= 0 && row < Settings.boardSize.dimension else { return nil }
@@ -104,6 +121,10 @@ class Board {
 
                 if item.name == "set" {
                     activePieceSet = PieceSet.symbol(item.value!)!
+                }
+
+                if item.name == "jumps" {
+                    backwardJumps = item.value! == "1"
                 }
             }
         }

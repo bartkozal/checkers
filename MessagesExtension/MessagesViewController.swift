@@ -17,6 +17,11 @@ class MessagesViewController: MSMessagesAppViewController {
             Settings.boardSize = boardSize
         }
     }
+    var backwardJumps = false {
+        didSet {
+            Settings.backwardJumps = backwardJumps
+        }
+    }
 
     override func willBecomeActive(with conversation: MSConversation) {
         super.willBecomeActive(with: conversation)
@@ -97,13 +102,17 @@ extension MessagesViewController: MenuViewControllerDelegate {
         boardSize = size
     }
 
+    func didChangeBackwardJumps(to rule: Bool) {
+        backwardJumps = rule
+    }
+
     func didStartGame() {
         requestPresentationStyle(.expanded)
     }
 }
 
 extension MessagesViewController: GameViewControllerDelegate {
-    func didFinishMove(setupValue: String, boardSizeValue: String, activePieceSetValue: String, snapshot gameSnapshot: UIImage) {
+    func didFinishMove(setupValue: String, boardSizeValue: String, activePieceSetValue: String, backwardJumpsValue: String, snapshot gameSnapshot: UIImage) {
         dismiss()
 
         let conversation = activeConversation
@@ -116,7 +125,8 @@ extension MessagesViewController: GameViewControllerDelegate {
         let setupQueryItem = URLQueryItem(name: "board", value: setupValue)
         let boardSizeQueryItem = URLQueryItem(name: "size", value: boardSizeValue)
         let activePieceSetQueryItem = URLQueryItem(name: "set", value: activePieceSetValue)
-        components.queryItems = [setupQueryItem, boardSizeQueryItem, activePieceSetQueryItem]
+        let backwardJumpsQueryItem = URLQueryItem(name: "jumps", value: backwardJumpsValue)
+        components.queryItems = [setupQueryItem, boardSizeQueryItem, activePieceSetQueryItem, backwardJumpsQueryItem]
 
         let message = MSMessage(session: session)
         message.layout = layout

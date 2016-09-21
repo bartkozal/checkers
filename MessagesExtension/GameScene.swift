@@ -129,6 +129,14 @@ class GameScene: SKScene {
                 guard column != 0 else { continue }
                 guard abs(row) == abs(column) else { continue }
 
+                if !board.backwardJumps && piece.pieceType == .pawn {
+                    if piece.pieceSet == .white {
+                        guard row != -1 else { continue }
+                    } else {
+                        guard row != 1 else { continue }
+                    }
+                }
+
                 let rowToFinishMove = piece.row + row + 1 * (row / abs(row))
                 let columnToFinishMove = piece.column + column + 1 * (column / abs(column))
                 
