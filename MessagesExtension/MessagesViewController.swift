@@ -11,6 +11,8 @@ import Messages
 import SpriteKit
 
 class MessagesViewController: MSMessagesAppViewController {
+    var controller = UIViewController()
+
     override func willBecomeActive(with conversation: MSConversation) {
         super.willBecomeActive(with: conversation)
 
@@ -18,7 +20,14 @@ class MessagesViewController: MSMessagesAppViewController {
     }
 
     override func didBecomeActive(with conversation: MSConversation) {
-        view.isUserInteractionEnabled = !isSenderSameAsRecipient()
+        super.didBecomeActive(with: conversation)
+
+        guard let message = conversation.selectedMessage else { return }
+
+        if controller.isMember(of: GameViewController.self) {
+            let isSenderSameAsRecipient = message.senderParticipantIdentifier == conversation.localParticipantIdentifier
+            (controller as? GameViewController)?.scene.isUserInteractionEnabled = !isSenderSameAsRecipient
+        }
     }
 
     override func willTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
@@ -30,8 +39,6 @@ class MessagesViewController: MSMessagesAppViewController {
     }
 
     private func presentVC(for conversation: MSConversation, with presentationStyle: MSMessagesAppPresentationStyle) {
-        let controller: UIViewController
-
         if presentationStyle == .compact {
             controller = instantiateMenuVC()
         } else {
@@ -77,13 +84,6 @@ class MessagesViewController: MSMessagesAppViewController {
         gameVC.delegate = self
 
         return gameVC
-    }
-
-    private func isSenderSameAsRecipient() -> Bool {
-        guard let conversation = activeConversation else { return false }
-        guard let message = conversation.selectedMessage else { return false }
-
-        return message.senderParticipantIdentifier == conversation.localParticipantIdentifier
     }
 }
 

@@ -79,6 +79,12 @@ class GameViewController: UIViewController {
         skView.presentScene(scene)
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        SKPaymentQueue.default().remove(self)
+    }
+
     override func viewDidLayoutSubviews() {
         skView.frame = boardView.frame
     }
