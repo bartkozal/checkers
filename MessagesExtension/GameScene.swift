@@ -139,7 +139,7 @@ class GameScene: SKScene {
 
                 let rowToFinishMove = piece.row + row + 1 * (row / abs(row))
                 let columnToFinishMove = piece.column + column + 1 * (column / abs(column))
-                
+
                 guard 0..<dimension ~= rowToFinishMove else { continue }
                 guard 0..<dimension ~= columnToFinishMove else { continue }
 
@@ -150,6 +150,21 @@ class GameScene: SKScene {
                 
                 guard let pieceToCapture = board.pieceAt(column: columnToCapture, row: rowToCaputre) else { continue }
                 guard piece.canCapturePieceOf(set: pieceToCapture.pieceSet) else { continue }
+
+                var ownPieces = 0
+                var opponentPieces = 0
+                let distance = abs(columnToFinishMove - piece.column)
+
+                for n in 1..<distance {
+                    if let pieceToCheck = board.pieceAt(column: piece.column + n * ((columnToFinishMove - piece.column) / distance), row: piece.row + n * ((rowToFinishMove - piece.row) / distance)) {
+                        if piece.canCapturePieceOf(set: pieceToCheck.pieceSet) {
+                            opponentPieces += 1
+                        } else {
+                            ownPieces += 1
+                        }
+                    }
+                }
+                guard ownPieces == 0 && opponentPieces == 1 else { continue }
 
                 captures.append(pieceToCapture)
             }
