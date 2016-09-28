@@ -165,10 +165,12 @@ class Board {
 
                 if item.name == "jumps" {
                     backwardJumps = item.value! == "1"
+                    continue
                 }
 
                 if item.name == "sequences" {
                     backwardJumpsInSequences = item.value! == "1"
+                    continue
                 }
 
                 if item.name == "capturing" {

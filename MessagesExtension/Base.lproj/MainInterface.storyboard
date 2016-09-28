@@ -246,6 +246,7 @@
                                 <exclude reference="PkQ-Wl-ObM"/>
                                 <exclude reference="OxZ-iR-9OL"/>
                                 <exclude reference="8Tb-Eb-DKm"/>
+                                <exclude reference="ud8-Gi-DmO"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
@@ -253,6 +254,7 @@
                                 <exclude reference="PkQ-Wl-ObM"/>
                                 <exclude reference="OxZ-iR-9OL"/>
                                 <exclude reference="8Tb-Eb-DKm"/>
+                                <exclude reference="ud8-Gi-DmO"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
