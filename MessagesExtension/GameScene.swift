@@ -27,6 +27,7 @@ class GameScene: SKScene {
     var draggedPiece: Piece?
     var captures = [Piece]()
     var capturing = false
+    var capturingInSequence = false
     var capturingPiece: Piece?
     var capturingPieces = [Piece]()
     var capturingTiles = [SKSpriteNode]()
@@ -129,7 +130,7 @@ class GameScene: SKScene {
                 guard column != 0 else { continue }
                 guard abs(row) == abs(column) else { continue }
 
-                if !board.backwardJumps && piece.pieceType == .pawn {
+                if !board.backwardJumps && !capturingInSequence && piece.pieceType == .pawn {
                     if piece.pieceSet == .white {
                         guard row != -1 else { continue }
                     } else {
@@ -233,15 +234,17 @@ class GameScene: SKScene {
                 tile.color = Settings.darkTilesColor
             }
 
-            if !capturesFor(piece: piece) {
+            capturingInSequence = true
+
+            if capturesFor(piece: piece) {
+                piece.sprite?.run(movement)
+            } else {
                 capturing = false
                 capturingPiece = nil
                 piece.sprite?.run(movement) { [unowned self] in
                     self.tryCrown(piece: piece)
                     self.finishMove(at: self.pointFor(column: to.column, row: to.row))
                 }
-            } else {
-                piece.sprite?.run(movement)
             }
         }
     }
