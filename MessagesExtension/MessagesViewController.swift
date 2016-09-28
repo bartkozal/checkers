@@ -23,6 +23,18 @@ class MessagesViewController: MSMessagesAppViewController {
         }
     }
 
+    var backwardJumpsInSequences = true {
+        didSet {
+            Settings.backwardJumpsInSequences = backwardJumpsInSequences
+        }
+    }
+
+    var mandatoryCapturing = true {
+        didSet {
+            Settings.mandatoryCapturing = mandatoryCapturing
+        }
+    }
+
     override func willBecomeActive(with conversation: MSConversation) {
         super.willBecomeActive(with: conversation)
 
@@ -106,13 +118,27 @@ extension MessagesViewController: MenuViewControllerDelegate {
         backwardJumps = rule
     }
 
+    func didChangeBackwardJumpsInSequences(to rule: Bool) {
+        backwardJumpsInSequences = rule
+    }
+
+    func didChangeMandatoryCapturing(to rule: Bool) {
+        mandatoryCapturing = rule
+    }
+
     func didStartGame() {
         requestPresentationStyle(.expanded)
     }
 }
 
 extension MessagesViewController: GameViewControllerDelegate {
-    func didFinishMove(setupValue: String, boardSizeValue: String, activePieceSetValue: String, backwardJumpsValue: String, snapshot gameSnapshot: UIImage) {
+    func didFinishMove(setupValue: String,
+                       boardSizeValue: String,
+                       activePieceSetValue: String,
+                       backwardJumpsValue: String,
+                       backwardJumpsInSequencesValue: String,
+                       mandatoryCapturingValue: String,
+                       snapshot gameSnapshot: UIImage) {
         dismiss()
 
         let conversation = activeConversation
@@ -126,7 +152,9 @@ extension MessagesViewController: GameViewControllerDelegate {
         let boardSizeQueryItem = URLQueryItem(name: "size", value: boardSizeValue)
         let activePieceSetQueryItem = URLQueryItem(name: "set", value: activePieceSetValue)
         let backwardJumpsQueryItem = URLQueryItem(name: "jumps", value: backwardJumpsValue)
-        components.queryItems = [setupQueryItem, boardSizeQueryItem, activePieceSetQueryItem, backwardJumpsQueryItem]
+        let backwardJumpsInSequencesQueryItem = URLQueryItem(name: "sequences", value: backwardJumpsInSequencesValue)
+        let mandatoryCapturingQueryItem = URLQueryItem(name: "capturing", value: mandatoryCapturingValue)
+        components.queryItems = [setupQueryItem, boardSizeQueryItem, activePieceSetQueryItem, backwardJumpsQueryItem, backwardJumpsInSequencesQueryItem, mandatoryCapturingQueryItem]
 
         let message = MSMessage(session: session)
         message.layout = layout

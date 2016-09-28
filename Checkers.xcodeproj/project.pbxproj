@@ -124,16 +124,32 @@
 		A10EE8CB1D70D4F80044A5E1 /* MessagesExtension */ = {
 			isa = PBXGroup;
 			children = (
+				A10EE8D31D70D4F80044A5E1 /* Info.plist */,
+				A10EE8CE1D70D4F80044A5E1 /* MainInterface.storyboard */,
+				A10EE8D11D70D4F80044A5E1 /* Assets.xcassets */,
+				A1B2337C1D70E61A005284B1 /* Game */,
+				A1B232181D9C34C7005AFA81 /* Controllers */,
+				A1B232191D9C34D8005AFA81 /* Views */,
+			);
+			path = MessagesExtension;
+			sourceTree = "<group>";
+		};
+		A1B232181D9C34C7005AFA81 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				A10EE8CC1D70D4F80044A5E1 /* MessagesViewController.swift */,
 				A1718A571D70DB4400CC952A /* GameViewController.swift */,
 				A1718A591D70DB7B00CC952A /* MenuViewController.swift */,
-				A10BC2741D7C3F6800D2FA8D /* RoundedButton.swift */,
-				A10EE8CE1D70D4F80044A5E1 /* MainInterface.storyboard */,
-				A1B2337C1D70E61A005284B1 /* Game */,
-				A10EE8D11D70D4F80044A5E1 /* Assets.xcassets */,
-				A10EE8D31D70D4F80044A5E1 /* Info.plist */,
 			);
-			path = MessagesExtension;
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A1B232191D9C34D8005AFA81 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A10BC2741D7C3F6800D2FA8D /* RoundedButton.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		A1B2337C1D70E61A005284B1 /* Game */ = {

@@ -12,6 +12,8 @@ protocol MenuViewControllerDelegate: class {
     func didStartGame()
     func didChangeBoardSize(to size: BoardSize)
     func didChangeBackwardJumps(to rule: Bool)
+    func didChangeBackwardJumpsInSequences(to rule: Bool)
+    func didChangeMandatoryCapturing(to rule: Bool)
 }
 
 class MenuViewController: UIViewController {
@@ -45,29 +47,81 @@ class MenuViewController: UIViewController {
         }
     }
 
+    var _backwardJumpsInSequences = Settings.backwardJumpsInSequences
+    var backwardJumpsInSequences: Bool {
+        get {
+            return _backwardJumpsInSequences
+        }
+
+        set {
+            _backwardJumpsInSequences = newValue
+            delegate?.didChangeBackwardJumpsInSequences(to: newValue)
+            disableBackwardJumpsInSequencesButton.isEnabled = newValue == true
+            enableBackwardJumpsInSequencesButton.isEnabled = newValue == false
+        }
+    }
+
+    var _mandatoryCapturing = Settings.mandatoryCapturing
+    var mandatoryCapturing: Bool {
+        get {
+            return _mandatoryCapturing
+        }
+
+        set {
+            _backwardJumpsInSequences = newValue
+            delegate?.didChangeMandatoryCapturing(to: newValue)
+            disableMandatoryCapturingButton.isEnabled = newValue == true
+            enableMandatoryCapturingButton.isEnabled = newValue == false
+        }
+    }
+
     weak var delegate: MenuViewControllerDelegate?
 
-    @IBOutlet weak private var smallBoardButton: UIButton! {
+    @IBOutlet private weak var smallBoardButton: UIButton! {
         didSet {
             smallBoardButton.isEnabled = boardSize != .small
         }
     }
 
-    @IBOutlet weak private var largeBoardButton: UIButton! {
+    @IBOutlet private weak var largeBoardButton: UIButton! {
         didSet {
             largeBoardButton.isEnabled = boardSize != .large
         }
     }
 
-    @IBOutlet weak var disableBackwardJumpsButton: UIButton! {
+    @IBOutlet private weak var disableBackwardJumpsButton: UIButton! {
         didSet {
             disableBackwardJumpsButton.isEnabled = backwardJumps == true
         }
     }
 
-    @IBOutlet weak var enableBackwardJumpsButton: UIButton! {
+    @IBOutlet private weak var enableBackwardJumpsButton: UIButton! {
         didSet {
             enableBackwardJumpsButton.isEnabled = backwardJumps == false
+        }
+    }
+
+    @IBOutlet private weak var disableBackwardJumpsInSequencesButton: UIButton! {
+        didSet {
+            disableBackwardJumpsInSequencesButton.isEnabled = backwardJumpsInSequences == true
+        }
+    }
+
+    @IBOutlet private weak var enableBackwardJumpsInSequencesButton: UIButton! {
+        didSet {
+            enableBackwardJumpsInSequencesButton.isEnabled = backwardJumpsInSequences == false
+        }
+    }
+
+    @IBOutlet private weak var disableMandatoryCapturingButton: UIButton! {
+        didSet {
+            disableMandatoryCapturingButton.isEnabled = mandatoryCapturing == true
+        }
+    }
+
+    @IBOutlet private weak var enableMandatoryCapturingButton: UIButton! {
+        didSet {
+            enableMandatoryCapturingButton.isEnabled = mandatoryCapturing == false
         }
     }
 
@@ -84,6 +138,22 @@ class MenuViewController: UIViewController {
             backwardJumps = true
         } else {
             backwardJumps = false
+        }
+    }
+
+    @IBAction private func tapBackwardJumpsInSequencesButton(button: UIButton) {
+        if button.titleLabel?.text == "Yes" {
+            backwardJumpsInSequences = true
+        } else {
+            backwardJumpsInSequences = false
+        }
+    }
+
+    @IBAction private func tapMandatoryCapturingButton(button: UIButton) {
+        if button.titleLabel?.text == "Yes" {
+            mandatoryCapturing = true
+        } else {
+            mandatoryCapturing = false
         }
     }
 

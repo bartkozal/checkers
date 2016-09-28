@@ -22,6 +22,7 @@ class Board {
             _setup = newValue
         }
     }
+
     var setupValue: String {
         var setup: [String] = []
         for row in 0..<Settings.boardSize.dimension {
@@ -43,6 +44,7 @@ class Board {
             Settings.boardSize = newValue
         }
     }
+
     var sizeValue: String {
         switch size {
         case .small:
@@ -71,8 +73,45 @@ class Board {
             Settings.backwardJumps = newValue
         }
     }
+
     var backwardJumpsValue: String {
         if backwardJumps {
+            return "1"
+        } else {
+            return "0"
+        }
+    }
+
+    var backwardJumpsInSequences: Bool {
+        get {
+            return Settings.backwardJumpsInSequences
+        }
+
+        set {
+            Settings.backwardJumpsInSequences = newValue
+        }
+    }
+
+    var backwardJumpsInSequencesValue: String {
+        if backwardJumpsInSequences {
+            return "1"
+        } else {
+            return "0"
+        }
+    }
+
+    var mandatoryCapturing: Bool {
+        get {
+            return Settings.mandatoryCapturing
+        }
+
+        set {
+            Settings.mandatoryCapturing = newValue
+        }
+    }
+
+    var mandatoryCapturingValue: String {
+        if mandatoryCapturing {
             return "1"
         } else {
             return "0"
@@ -121,10 +160,19 @@ class Board {
 
                 if item.name == "set" {
                     activePieceSet = PieceSet.symbol(item.value!)!
+                    continue
                 }
 
                 if item.name == "jumps" {
                     backwardJumps = item.value! == "1"
+                }
+
+                if item.name == "sequences" {
+                    backwardJumpsInSequences = item.value! == "1"
+                }
+
+                if item.name == "capturing" {
+                    mandatoryCapturing = item.value! == "1"
                 }
             }
         }

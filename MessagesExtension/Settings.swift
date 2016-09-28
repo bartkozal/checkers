@@ -15,5 +15,7 @@ struct Settings {
     static let captureTileColor = UIColor(red: 0.96, green: 0.65, blue: 0.14, alpha: 1.0)
     
     static var boardSize = BoardSize.small
+    static var mandatoryCapturing = true
     static var backwardJumps = false
+    static var backwardJumpsInSequences = true
 }

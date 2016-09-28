@@ -11,7 +11,13 @@ import SpriteKit
 import StoreKit
 
 protocol GameViewControllerDelegate: class {
-    func didFinishMove(setupValue: String, boardSizeValue: String, activePieceSetValue: String, backwardJumpsValue: String, snapshot gameSnapshot: UIImage)
+    func didFinishMove(setupValue: String,
+                       boardSizeValue: String,
+                       activePieceSetValue: String,
+                       backwardJumpsValue: String,
+                       backwardJumpsInSequencesValue: String,
+                       mandatoryCapturingValue: String,
+                       snapshot gameSnapshot: UIImage)
 }
 
 class GameViewController: UIViewController {
@@ -59,6 +65,36 @@ class GameViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var helpMandatoryCapturingLabel: UILabel! {
+        didSet {
+            if board.mandatoryCapturing {
+                helpMandatoryCapturingLabel.text = "- Capturing is mandatory"
+            } else {
+                helpMandatoryCapturingLabel.text = "- Capturing isn't mandatory"
+            }
+        }
+    }
+
+    @IBOutlet weak var helpBackwardJumpsLabel: UILabel! {
+        didSet {
+            if board.backwardJumps {
+                helpBackwardJumpsLabel.text = "- Backward jumps are allowed"
+            } else {
+                helpBackwardJumpsLabel.text = "- Backward jumps are forbidden"
+            }
+        }
+    }
+
+    @IBOutlet weak var helpBackwardJumpsInSequencesLabel: UILabel! {
+        didSet {
+            if board.backwardJumpsInSequences {
+                helpBackwardJumpsInSequencesLabel.text = "- Backward jumps are allowed in sequences (the second, third etc. jump with the same piece)"
+            } else {
+                helpBackwardJumpsInSequencesLabel.text = "- Backward jumps are forbidden in sequences (the second, third etc. jump with the same piece)"
+            }
+        }
+    }
+
     @IBAction func tapDonationButton() {
         if SKPaymentQueue.canMakePayments() {
             SKPaymentQueue.default().add(self)
@@ -69,6 +105,26 @@ class GameViewController: UIViewController {
             productRequest.delegate = self
             productRequest.start()
         }
+    }
+
+    @IBOutlet weak var helpView: UIView! {
+        didSet {
+            helpView.isHidden = true
+        }
+    }
+
+    @IBAction private func tapHelpButton() {
+        helpView.alpha = 0.0
+        helpView.isHidden = false
+        UIView.animate(withDuration: 0.2,
+                       animations: { self.helpView.alpha = 1.0 },
+                       completion: nil)
+    }
+
+    @IBAction private func tapCloseHelpButton() {
+        UIView.animate(withDuration: 0.2,
+                       animations: { self.helpView.alpha = 0.0 },
+                       completion: { _ in self.helpView.isHidden = true })
     }
 
     func getGameSnapshot() -> UIImage {
@@ -91,6 +147,7 @@ class GameViewController: UIViewController {
         scene.renderBoard()
 
         skView.presentScene(scene)
+        view.bringSubview(toFront: helpView)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -106,7 +163,14 @@ class GameViewController: UIViewController {
 
 extension GameViewController: GameSceneDelegate {
     func didFinishMove() {
-        delegate?.didFinishMove(setupValue: board.setupValue, boardSizeValue: board.sizeValue, activePieceSetValue: board.activePieceSetValue, backwardJumpsValue: board.backwardJumpsValue, snapshot: getGameSnapshot())
+        delegate?.didFinishMove(
+            setupValue: board.setupValue,
+            boardSizeValue: board.sizeValue,
+            activePieceSetValue: board.activePieceSetValue,
+            backwardJumpsValue: board.backwardJumpsValue,
+            backwardJumpsInSequencesValue: board.backwardJumpsInSequencesValue,
+            mandatoryCapturingValue: board.mandatoryCapturingValue,
+            snapshot: getGameSnapshot())
     }
 }
 

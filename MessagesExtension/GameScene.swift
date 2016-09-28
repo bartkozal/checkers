@@ -66,7 +66,7 @@ class GameScene: SKScene {
 
         if success {
             if let piece = board.pieceAt(column: column, row: row), piece.pieceSet == board.activePieceSet {
-                if haveMandatoryCaptures {
+                if board.mandatoryCapturing && haveMandatoryCaptures {
                     guard capturingPieces.contains(piece) else { return }
                 }
 
@@ -234,7 +234,9 @@ class GameScene: SKScene {
                 tile.color = Settings.darkTilesColor
             }
 
-            capturingInSequence = true
+            if board.backwardJumpsInSequences {
+                capturingInSequence = true
+            }
 
             if capturesFor(piece: piece) {
                 piece.sprite?.run(movement)
@@ -318,12 +320,14 @@ class GameScene: SKScene {
 
                     piece.sprite = sprite
 
-                    if piece.pieceSet == board.activePieceSet && capturesFor(piece: piece) {
-                        let location = pointFor(column: piece.column, row: piece.row)
-                        let tile = boardLayer.atPoint(location) as! SKSpriteNode
-                        tile.color = Settings.captureTileColor
-                        capturingTiles.append(tile)
-                        capturingPieces.append(piece)
+                    if board.mandatoryCapturing {
+                        if piece.pieceSet == board.activePieceSet && capturesFor(piece: piece) {
+                            let location = pointFor(column: piece.column, row: piece.row)
+                            let tile = boardLayer.atPoint(location) as! SKSpriteNode
+                            tile.color = Settings.captureTileColor
+                            capturingTiles.append(tile)
+                            capturingPieces.append(piece)
+                        }
                     }
 
                     mandatoryCaptureLabel.isHidden = !haveMandatoryCaptures
