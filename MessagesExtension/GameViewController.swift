@@ -70,7 +70,7 @@ class GameViewController: UIViewController {
             if board.mandatoryCapturing {
                 helpMandatoryCapturingLabel.text = "- Capturing is mandatory"
             } else {
-                helpMandatoryCapturingLabel.text = "- Capturing isn't mandatory"
+                helpMandatoryCapturingLabel.text = "- Capturing is optional"
             }
         }
     }
