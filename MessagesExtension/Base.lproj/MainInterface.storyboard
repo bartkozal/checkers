@@ -61,25 +61,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="PkQ-Wl-ObM">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="xmi-q7-wBw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                <state key="normal" title="You can support the further development of this app and buy me a cup of coffee." image="icn-coffee">
-                                    <color key="titleColor" red="0.66666666666666663" green="0.67450980392156867" blue="0.67450980392156867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapDonationButton" destination="NsR-dU-caD" eventType="touchUpInside" id="vWn-bB-vg5"/>
-                                </connections>
-                            </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OxZ-iR-9OL">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8Tb-Eb-DKm">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mAe-R1-y8n">
@@ -200,7 +181,6 @@
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="0Ir-2l-uCp"/>
                             <constraint firstItem="xKS-CA-fXI" firstAttribute="leading" secondItem="mXW-FR-u3w" secondAttribute="leading" id="22t-a9-AdH"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="6tP-Qd-Ln5"/>
-                            <constraint firstItem="PkQ-Wl-ObM" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="A81-rq-T5a"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="top" secondItem="8Tb-Eb-DKm" secondAttribute="bottom" constant="5" id="Fgq-LJ-IM1"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerY" secondItem="mXW-FR-u3w" secondAttribute="centerY" id="Fs4-jH-NiW"/>
                             <constraint firstAttribute="bottom" secondItem="GKC-L7-eZC" secondAttribute="bottom" id="PwM-Eu-cZ7">
@@ -210,14 +190,11 @@
                                 <variation key="heightClass=compact" constant="66"/>
                             </constraint>
                             <constraint firstAttribute="bottom" secondItem="xKS-CA-fXI" secondAttribute="bottom" id="XuY-Yy-3T2"/>
-                            <constraint firstAttribute="bottom" secondItem="PkQ-Wl-ObM" secondAttribute="bottom" constant="64" id="bA7-kB-tzO"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="top" secondItem="ud8-Gi-DmO" secondAttribute="bottom" constant="5" id="bme-sM-2KZ"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="leading" secondItem="mXW-FR-u3w" secondAttribute="leading" id="eLA-BB-Sr6"/>
                             <constraint firstAttribute="trailing" secondItem="GKC-L7-eZC" secondAttribute="trailing" id="ip2-KR-10P"/>
                             <constraint firstItem="xKS-CA-fXI" firstAttribute="top" secondItem="mXW-FR-u3w" secondAttribute="top" id="jNs-aI-cQL"/>
                             <constraint firstItem="8Tb-Eb-DKm" firstAttribute="leading" secondItem="GKC-L7-eZC" secondAttribute="leading" constant="5" id="jWz-7L-4eE"/>
-                            <constraint firstItem="OxZ-iR-9OL" firstAttribute="leading" secondItem="PkQ-Wl-ObM" secondAttribute="leading" constant="5" id="kcQ-YI-CoJ"/>
-                            <constraint firstItem="OxZ-iR-9OL" firstAttribute="centerY" secondItem="PkQ-Wl-ObM" secondAttribute="centerY" id="l5p-pD-d9e"/>
                             <constraint firstItem="ud8-Gi-DmO" firstAttribute="trailing" secondItem="GKC-L7-eZC" secondAttribute="trailing" constant="-5" id="qE2-gj-gxa"/>
                             <constraint firstAttribute="trailing" secondItem="xKS-CA-fXI" secondAttribute="trailing" id="yhD-i9-oP6"/>
                             <constraint firstItem="GKC-L7-eZC" firstAttribute="centerX" secondItem="mXW-FR-u3w" secondAttribute="centerX" id="zew-m9-aVp"/>
@@ -243,16 +220,12 @@
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
                             <mask key="subviews">
-                                <exclude reference="PkQ-Wl-ObM"/>
-                                <exclude reference="OxZ-iR-9OL"/>
                                 <exclude reference="8Tb-Eb-DKm"/>
                                 <exclude reference="ud8-Gi-DmO"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
                             <mask key="subviews">
-                                <exclude reference="PkQ-Wl-ObM"/>
-                                <exclude reference="OxZ-iR-9OL"/>
                                 <exclude reference="8Tb-Eb-DKm"/>
                                 <exclude reference="ud8-Gi-DmO"/>
                             </mask>
@@ -270,13 +243,11 @@
                     <connections>
                         <outlet property="activePieceSetImage" destination="HTn-AS-Uym" id="Yx7-fF-PlF"/>
                         <outlet property="boardView" destination="GKC-L7-eZC" id="cwu-hv-TBn"/>
-                        <outlet property="donationButton" destination="PkQ-Wl-ObM" id="3nl-tg-3Hy"/>
                         <outlet property="helpBackwardJumpsInSequencesLabel" destination="TV1-ej-jyN" id="o3a-Uy-47a"/>
                         <outlet property="helpBackwardJumpsLabel" destination="8Kr-24-PrM" id="NWQ-dr-eoq"/>
                         <outlet property="helpMandatoryCapturingLabel" destination="cnC-d6-oSS" id="0Ah-ph-VHe"/>
                         <outlet property="helpView" destination="xKS-CA-fXI" id="PWg-ru-9B9"/>
                         <outlet property="mandatoryCaptureLabel" destination="WN8-1P-Hhu" id="sld-RS-9bd"/>
-                        <outlet property="transactionIndicator" destination="OxZ-iR-9OL" id="YmO-QQ-FWX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0z-AN-wOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -481,7 +452,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icn-coffee" width="30" height="30"/>
         <image name="icn-help" width="25" height="25"/>
     </resources>
 </document>

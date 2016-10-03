@@ -8,7 +8,6 @@
 
 import UIKit
 import SpriteKit
-import StoreKit
 
 protocol GameViewControllerDelegate: class {
     func didFinishMove(setupValue: String,
@@ -28,30 +27,8 @@ class GameViewController: UIViewController {
     var scene: GameScene!
     var board: Board!
     var skView: SKView!
-    var transactionInProgress = false {
-        didSet {
-            if transactionInProgress {
-                donationButton.isEnabled = false
-                transactionIndicator.startAnimating()
-            } else {
-                donationButton.isEnabled = true
-                transactionIndicator.stopAnimating()
-            }
-        }
-    }
 
     @IBOutlet weak var boardView: UIView!
-    @IBOutlet weak var donationButton: UIButton! {
-        didSet {
-            donationButton.isHidden = !SKPaymentQueue.canMakePayments()
-        }
-    }
-
-    @IBOutlet weak var transactionIndicator: UIActivityIndicatorView! {
-        didSet {
-            transactionIndicator.stopAnimating()
-        }
-    }
 
     @IBOutlet weak var activePieceSetImage: UIImageView! {
         didSet {
@@ -92,18 +69,6 @@ class GameViewController: UIViewController {
             } else {
                 helpBackwardJumpsInSequencesLabel.text = "- Backward jumps are forbidden in sequences (the second, third etc. jump with the same piece)"
             }
-        }
-    }
-
-    @IBAction func tapDonationButton() {
-        if SKPaymentQueue.canMakePayments() {
-            SKPaymentQueue.default().add(self)
-
-            transactionInProgress = true
-
-            let productRequest = SKProductsRequest(productIdentifiers: Set(["bkzl.checkers.iap.coffee"]))
-            productRequest.delegate = self
-            productRequest.start()
         }
     }
 
@@ -150,12 +115,6 @@ class GameViewController: UIViewController {
         view.bringSubview(toFront: helpView)
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        SKPaymentQueue.default().remove(self)
-    }
-
     override func viewDidLayoutSubviews() {
         skView.frame = boardView.frame
     }
@@ -171,28 +130,5 @@ extension GameViewController: GameSceneDelegate {
             backwardJumpsInSequencesValue: board.backwardJumpsInSequencesValue,
             mandatoryCapturingValue: board.mandatoryCapturingValue,
             snapshot: getGameSnapshot())
-    }
-}
-
-extension GameViewController: SKProductsRequestDelegate {
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        for product in response.products {
-            let payment = SKPayment(product: product)
-            SKPaymentQueue.default().add(payment)
-        }
-    }
-}
-
-extension GameViewController: SKPaymentTransactionObserver {
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transcation in transactions {
-            switch transcation.transactionState {
-            case .purchased, .failed, .restored:
-                SKPaymentQueue.default().finishTransaction(transcation)
-                transactionInProgress = false
-            default:
-                break
-            }
-        }
     }
 }

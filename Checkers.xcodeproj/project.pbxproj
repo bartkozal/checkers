@@ -22,7 +22,6 @@
 		A1B233821D70EDA3005284B1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B233811D70EDA3005284B1 /* Settings.swift */; };
 		A1B233841D70EE3A005284B1 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B233831D70EE3A005284B1 /* Board.swift */; };
 		A1B233861D70EE58005284B1 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B233851D70EE58005284B1 /* Piece.swift */; };
-		A1CB03281D919A6E0095750C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1CB03271D919A6E0095750C /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +76,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10EE8CA1D70D4F80044A5E1 /* Messages.framework in Frameworks */,
-				A1CB03281D919A6E0095750C /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,7 +221,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
