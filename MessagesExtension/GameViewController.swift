@@ -116,6 +116,8 @@ class GameViewController: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
         skView.frame = boardView.frame
     }
 }
