@@ -18,7 +18,6 @@ class Board {
         }
 
         set {
-            setUpBoard(with: newValue)
             _setup = newValue
         }
     }
@@ -143,6 +142,7 @@ class Board {
     init(message: MSMessage?) {
         guard let message = message, let url = message.url else {
             setup = Settings.boardSize.newGameSetup
+            setUpBoard(with: setup)
             return
         }
 
@@ -178,6 +178,8 @@ class Board {
                 }
             }
         }
+
+        setUpBoard(with: setup)
     }
 
     private func setUpBoard(with setup: String) {
