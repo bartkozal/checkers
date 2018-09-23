@@ -1,11 +1,3 @@
-//
-//  Array2D.swift
-//  Checkers
-//
-//  Created by bkzl on 26/08/16.
-//  Copyright © 2016 bkzl. All rights reserved.
-//
-
 // FIXME Rename to Matrix, add Vector and Point
 struct Array2D<T> {
     let columns: Int

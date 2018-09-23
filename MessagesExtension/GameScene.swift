@@ -1,11 +1,3 @@
-//
-//  GameScene.swift
-//  Checkers
-//
-//  Created by bkzl on 26/08/16.
-//  Copyright © 2016 bkzl. All rights reserved.
-//
-
 import SpriteKit
 
 protocol GameSceneDelegate: class {
@@ -148,7 +140,7 @@ class GameScene: SKScene {
 
                 let rowToCaputre = piece.row + row
                 let columnToCapture = piece.column + column
-                
+
                 guard let pieceToCapture = board.pieceAt(column: columnToCapture, row: rowToCaputre) else { continue }
                 guard piece.canCapturePieceOf(set: pieceToCapture.pieceSet) else { continue }
 
@@ -357,7 +349,7 @@ class GameScene: SKScene {
             return (false, 0, 0)
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not used")
     }

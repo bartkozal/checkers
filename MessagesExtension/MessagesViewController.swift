@@ -1,11 +1,3 @@
-//
-//  MessagesViewController.swift
-//  MessagesExtension
-//
-//  Created by bkzl on 26/08/16.
-//  Copyright © 2016 bkzl. All rights reserved.
-//
-
 import UIKit
 import Messages
 import SpriteKit
@@ -160,7 +152,7 @@ extension MessagesViewController: GameViewControllerDelegate {
         message.layout = layout
         message.url = components.url
         message.summaryText = "Did a move in Checkers."
-        
+
         conversation?.insert(message)
     }
 }

@@ -1,11 +1,3 @@
-//
-//  BoardSize.swift
-//  Checkers
-//
-//  Created by bkzl on 19/09/2016.
-//  Copyright © 2016 bkzl. All rights reserved.
-//
-
 import Foundation
 
 enum BoardSize: String {

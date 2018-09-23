@@ -1,11 +1,3 @@
-//
-//  RoundedButton.swift
-//  Checkers
-//
-//  Created by bkzl on 04/09/16.
-//  Copyright © 2016 bkzl. All rights reserved.
-//
-
 import UIKit
 
 class RoundedButton: UIButton {
@@ -16,7 +8,7 @@ class RoundedButton: UIButton {
         super.init(frame: frame)
         setStyles()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setStyles()
